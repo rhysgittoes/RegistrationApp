@@ -29,11 +29,17 @@ input[type='text'], input[type='password']
    padding-bottom: 5px;
    border-radius:0px;
    margin-bottom: 0.8rem;
-   width: 80%;
+   width: 90%;
    border-color: #7f8c8d   ;
    border-width: 1px;
    border-style: solid;
   /* border-top:none;
    border-right:none;
    border-left:none;*/
+}
+
+.label{
+   width: 90%;
+   margin: 0 auto;
+   font-size: 0.9rem;
 }
