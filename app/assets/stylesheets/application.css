@@ -43,3 +43,8 @@ input[type='text'], input[type='password']
    margin: 0 auto;
    font-size: 0.9rem;
 }
+
+.sign_in{
+   margin: 0 auto;
+   width: 90% !important;
+}

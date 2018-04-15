@@ -130,13 +130,19 @@
             <div class="form_input_container">
               <%= password_field_tag :password %>
             </div>
-            <div class="actions"><%= submit_tag "Log In" %></div>
+            <!-- <div class="actions"></div> -->
+          
+            </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          <%= submit_tag "Log In", :class => "btn btn-primary sign_in"%>
           <% end %>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+          <div style="text-align: center; display: block; margin-bottom: 1rem;">
+            Forgot Password?
+          </div>
+
       </div>
     </div>
   </div>
