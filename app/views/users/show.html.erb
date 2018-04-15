@@ -11,6 +11,16 @@
       <h3>Status</h3>
        <div>
           Current IP: <%= request.env['REMOTE_ADDR']%>
+         <br>
+         <% country = GeoIP.new('GeoIP.dat').country("210.195.39.201") %>
+         <!-- ^^TESTING must change later -->      
+         Country:<%= country.country_name%>
+         
+         <br>
+         City:<% city = GeoIP.new('GeoLiteCity.dat').city("210.195.39.201")%> 
+         <!-- ^^TESTING must change later -->      
+         <%= city.city_name%>
+
        </div>
       </div>
       <div class="col-3">
