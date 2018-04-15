@@ -13,3 +13,19 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+
+
+document.addEventListener('turbolinks:load', function(){
+
+
+
+   $("#sign_up_modal_button").click(function(){
+      $("#sign_up_modal").modal();
+    });
+
+   $("#sign_in_modal_button").click(function(){
+      $("#sign_in_modal").modal();
+    });
+
+
+});
