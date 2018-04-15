@@ -13,3 +13,27 @@
  *= require_tree .
  *= require_self
  */
+
+/*.modal-lg {
+    max-width: 30% !important;
+}*/
+
+
+.form_input_container{
+   text-align: center;
+}
+
+input[type='text'], input[type='password']
+{
+   padding-top: 5px;
+   padding-bottom: 5px;
+   border-radius:0px;
+   margin-bottom: 0.8rem;
+   width: 80%;
+   border-color: #7f8c8d   ;
+   border-width: 1px;
+   border-style: solid;
+  /* border-top:none;
+   border-right:none;
+   border-left:none;*/
+}
