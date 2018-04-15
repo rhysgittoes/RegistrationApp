@@ -20,6 +20,8 @@
          City:<% city = GeoIP.new('GeoLiteCity.dat').city("210.195.39.201")%> 
          <!-- ^^TESTING must change later -->      
          <%= city.city_name%>
+         <br>
+         Time Zone: <%=city.timezone%>
 
        </div>
       </div>
