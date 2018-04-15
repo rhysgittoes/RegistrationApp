@@ -19,8 +19,12 @@ document.addEventListener('turbolinks:load', function(){
 
 
 
-   $("#sign_in_modal").click(function(){
-      $("#modal").modal();
+   $("#sign_up_modal_button").click(function(){
+      $("#sign_up_modal").modal();
+    });
+
+   $("#sign_in_modal_button").click(function(){
+      $("#sign_in_modal").modal();
     });
 
 

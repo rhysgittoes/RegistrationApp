@@ -7,7 +7,7 @@ class PagesController < ApplicationController
       if @current_user == nil 
          render "/pages/index"
       else 
-         redirect_to user_path
+         redirect_to user_path(@current_user)
       end
    end
 
