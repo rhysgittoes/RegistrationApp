@@ -30,6 +30,19 @@
       </div>
       <div class="col-3">
       <h3>Registration Status</h3>
+          <div>
+            <p>Name: <%=@user.first_name%>
+            <%=@user.last_name%></p>
+
+            <p>Country: <%=@user.country%></p>
+            <p>City: <%=@user.city%></p>
+            <p>Postcode: <%=@user.postcode%></p>
+            <p>Paypal: <%=@user.paypal%></p>
+            <p>ISP: <%=@user.isp%></p>
+            <p>Bandwidth<%=@user.bandwidth%></p>
+
+          </div>
+
       <%= button_to "Complete Registration", edit_user_url, method: :get%>
       </div>
    </div>
