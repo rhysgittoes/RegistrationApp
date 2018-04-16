@@ -1,15 +1,11 @@
 <br>
-<%= form_for :user do |form| %>
+<%= form_for @user do |form| %>
 <p>First name: <br><%= form.text_field :first_name %></p>
 <p>Last name:<br> <%= form.text_field :last_name %></p>
-<!-- <p>Profile Picture:<br><br> <%= form.file_field :avatar, style:"margin-right:-5.5rem;"%></p>  -->
-<!-- <p>Email:<br> <%= form.text_field :email %></p> -->
-<!-- <p>Password:<br> <%= form.password_field :password %></p> -->
-<!-- <p>Password Confirmation:<br> <%= form.password_field :password_confirmation %></p> -->
+
 <p>Gender:<br>
 <%= form.radio_button :gender, "female"%>  Female
 <%= form.radio_button :gender, "male"%> Male  </p>
-<!-- <p>Language:<br> <%= form.text_field :language%></p> -->
 <p>Birthday:<br> <%=form.date_field :birthday %></p>
 <p>Country:<br> <%= form.text_field :country %></p>
 <p>City:<br> <%= form.text_field :city %></p>
@@ -19,7 +15,7 @@
 
 <%= form.submit "Update Your Profile", data: {confirm: "Are you sure all your imformation is correct?"}, class: "btn btn-outline-dark" %>
               
-            <% end %>
+             <% end %>
 
 
 

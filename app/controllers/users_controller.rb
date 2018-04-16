@@ -14,15 +14,30 @@ class UsersController < ApplicationController
   end
 
   def show
-    
     @user = User.find_by_id(params[:id])
+  end
+
+  def edit
+    @user = User.find_by_id(params[:id])
+  end
+
+  def update
+    @user = User.find_by_id(params[:id])
+    @user.assign_attributes(allowed_params)
+    if @user.save
+        redirect_to user_path
+    else
+        flash[:notice] = "Sorry, there was an error updating your information. Please try again."
+        redirect_to edit_user_path
+    end
   end
 
 private
 
   def allowed_params
-  params.require(:user).permit(:email, :password, :password_confirmation)
+  params.require(:user).permit(:email, :password, :password_confirmation,:first_name,:last_name,:gender,:birthday,:country,:city,:postcode,:isp,:bandwidth)
   end
 end
+
 
 
