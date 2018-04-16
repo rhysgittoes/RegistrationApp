@@ -23,22 +23,15 @@ class UsersController < ApplicationController
 
   def update
 
-
-
     @user = User.find_by_id(params[:id])
-    # if @user.has_required_fields?
-    #   @user.assign_attributes(allowed_params) 
-    # else
-    #   flash[:notice] = "Please ensure all fields are completed."
-    #   redirect_to edit_user_path
-    # end
-    if @user.valid?
-      @user.save
-    else 
-      lash[:notice] = "Sorry, there was an error updating your information. Please try again."
-        redirect_to edit_user_path
-    end
+    @user.assign_attributes(allowed_params) 
     
+    # if @user.errors.any?
+    #   flash[:notice] = "Sorry, there was an error updating your information. Please try again."
+    #   redirect_to edit_user_path, :flash => { :notice => "Sorry, there was an error updating your information. Please try again." }
+    # end
+
+      
     if @user.save
         redirect_to user_path
     else

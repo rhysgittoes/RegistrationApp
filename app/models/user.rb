@@ -4,6 +4,14 @@ class User < ApplicationRecord
    mount_uploader :verification_photo, VerificationImageUploader
 
    validates :first_name, presence: true
+   validates :country, presence: true
+   validates :city, presence: true
+   validates :postcode, presence: true
+   validates :paypal, presence: true
+   validates :isp, presence: true
+   validates :bandwidth, presence: true
+   validates :isp_bill, presence: true
+   validates :verification_photo, presence: true
  
 
 

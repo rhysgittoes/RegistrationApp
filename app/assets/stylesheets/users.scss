@@ -7,3 +7,31 @@
    width: 100%;
 
 }
+.form_navigation_button{
+   background-color: #8e44ad;
+   text-align: left;
+   color: white;
+   width: 80%;
+   padding-top: 1rem;
+   padding-bottom: 1rem;
+   margin-bottom: 0.5rem;
+    // -webkit-box-shadow: 0 10px 6px -6px #777;
+    //  -moz-box-shadow: 0 10px 6px -6px #777;
+    //       box-shadow: 0 10px 6px -6px #777;
+   transition-duration: 0.5s;
+   padding-left: 1rem;
+
+}
+.form_navigation_button:hover{
+   background-color: #9b59b6;
+}
+
+.form_navigation_button_text{
+   display: inline; 
+   margin-bottom: 0.5rem; 
+   font-size: 2rem;
+}
+.chevron_container{
+   position: absolute;display:inline; top:-0.1rem; left: 22.5rem; font-size: 3.2rem; color: white;
+}
+

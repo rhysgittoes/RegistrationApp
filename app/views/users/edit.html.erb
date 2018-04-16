@@ -1,36 +1,75 @@
-<div style="display: inline-block; width: 100%;text-align: center; margin-top:2rem;">
-   <button id=basic_information_button>Basic Info</button>
-   <button id=location_information_button>Location Info</button>
-   <button id=connection_information_button>Connection Info</button>
-   <button id=complete_area_button>Finish</button>
+
+<%if flash[:notice]%>
+   <div style="width: 100%; text-align: center; background-color: #9b59b6; color: white; padding-top: 1rem; padding-bottom: 1rem;">
+      <%= flash[:notice] %>
+   </div>
+<%end%>
+
+
+<div class="col-12">
+   <div class="row">
+      <div class="col-4">
+
+         <div style=" display: block;text-align: center; margin-top:2rem; width: 100%; position: relative;">
+            
+            <button class="form_navigation_button" id=basic_information_button>
+               <div class="display-3 form_navigation_button_text">
+                  Basic Information 
+               </div>
+               <div class="chevron_container"">
+                  <i class="fas fa-chevron-right"></i>
+               </div>
+            </button>
+
+            <button class="form_navigation_button" id=location_information_button>
+               <div class="display-3 form_navigation_button_text">
+                  Location Information
+               </div>
+            </button>
+            <button class="form_navigation_button" id=connection_information_button>
+               <div class="display-3 form_navigation_button_text">
+                  Technical Details
+               </div>
+            </button>
+            <button class="form_navigation_button" id=complete_area_button>
+               <div class="display-3 form_navigation_button_text">
+                  Complete
+               </div>
+            </button>
+         </div>
+
+      </div>
+
+      <div class="col-8">
+         <br>
+         <%= form_for @user do |form| %>
+            <div id="basic_information" style="display: block;">
+               <p>First name: <br><%= form.text_field :first_name %></p>
+               <p>Last name:<br> <%= form.text_field :last_name %></p>
+            </div>
+            <div id="location_information" style="display: none">
+               <p>Country:<br> <%= form.text_field :country %></p>
+               <p>City:<br> <%= form.text_field :city %></p>
+               <p>Postcode:<br> <%= form.text_field :postcode %></p>
+            </div>
+
+            <div id="connection_information" style="display: none">
+            <p>Paypal:<br> <%= form.text_field :paypal %></p>
+            <p>Internet Service Provide:<br> <%= form.text_field :isp %></p>
+            <p>Bandwidth:<br> <%= form.text_field :bandwidth %></p>
+            <p>ISP Bill:<br> <%= form.file_field :isp_bill %></p>
+            <p>Verification Photo:<br> <%= form.file_field :verification_photo %></p>
+
+            </div>
+
+            <div id="finish_area" style="display: none;">
+
+            <%= form.submit "Update Your Profile", data: {confirm: "Are you sure all your imformation is correct?"}, class: "btn btn-outline-dark" %>
+            </div>
+         <% end %>
+      </div>
+   </div>
 </div>
-
-<br>
-<%= form_for @user do |form| %>
-   <div id="basic_information" style="display: block;">
-      <p>First name: <br><%= form.text_field :first_name %></p>
-      <p>Last name:<br> <%= form.text_field :last_name %></p>
-   </div>
-   <div id="location_information" style="display: none">
-      <p>Country:<br> <%= form.text_field :country %></p>
-      <p>City:<br> <%= form.text_field :city %></p>
-      <p>Postcode:<br> <%= form.text_field :postcode %></p>
-   </div>
-
-   <div id="connection_information" style="display: none">
-   <p>Paypal:<br> <%= form.text_field :paypal %></p>
-   <p>Internet Service Provide:<br> <%= form.text_field :isp %></p>
-   <p>Bandwidth:<br> <%= form.text_field :bandwidth %></p>
-   <p>ISP Bill:<br> <%= form.file_field :isp_bill %></p>
-   <p>Verification Photo:<br> <%= form.file_field :verification_photo %></p>
-
-   </div>
-
-   <div id="finish_area" style="display: none;">
-
-   <%= form.submit "Update Your Profile", data: {confirm: "Are you sure all your imformation is correct?"}, class: "btn btn-outline-dark" %>
-   </div>
-<% end %>
 
 
 
