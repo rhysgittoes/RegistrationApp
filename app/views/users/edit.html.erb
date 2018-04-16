@@ -1,21 +1,33 @@
+<div style="display: inline-block; width: 100%;text-align: center; margin-top:2rem;">
+   <button id=basic_information_button>Basic Info</button>
+   <button id=location_information_button>Location Info</button>
+   <button id=connection_information_button>Connection Info</button>
+</div>
+
 <br>
 <%= form_for @user do |form| %>
-<p>First name: <br><%= form.text_field :first_name %></p>
-<p>Last name:<br> <%= form.text_field :last_name %></p>
+   <div id="basic_information" style="display: block;">
+      <p>First name: <br><%= form.text_field :first_name %></p>
+      <p>Last name:<br> <%= form.text_field :last_name %></p>
+      <p>
+         Gender:<br>
+         <%= form.radio_button :gender, "female"%>  Female
+         <%= form.radio_button :gender, "male"%> Male  
+      </p>
+      <p>Birthday:<br> <%=form.date_field :birthday %></p>
+   </div>
+   <div id="location_information">
+      <p>Country:<br> <%= form.text_field :country %></p>
+      <p>City:<br> <%= form.text_field :city %></p>
+      <p>Postcode:<br> <%= form.text_field :postcode %></p>
+   </div>
+   <div id="connection_information">
+   <p>Internet Service Provide:<br> <%= form.text_field :isp %></p>
+   <p>Bandwidth:<br> <%= form.text_field :bandwidth %></p>
+   </div>
 
-<p>Gender:<br>
-<%= form.radio_button :gender, "female"%>  Female
-<%= form.radio_button :gender, "male"%> Male  </p>
-<p>Birthday:<br> <%=form.date_field :birthday %></p>
-<p>Country:<br> <%= form.text_field :country %></p>
-<p>City:<br> <%= form.text_field :city %></p>
-<p>Postcode:<br> <%= form.text_field :postcode %></p>
-<p>Internet Service Provide:<br> <%= form.text_field :isp %></p>
-<p>Bandwidth:<br> <%= form.text_field :bandwidth %></p>
-
-<%= form.submit "Update Your Profile", data: {confirm: "Are you sure all your imformation is correct?"}, class: "btn btn-outline-dark" %>
-              
-             <% end %>
+   <%= form.submit "Update Your Profile", data: {confirm: "Are you sure all your imformation is correct?"}, class: "btn btn-outline-dark" %>
+<% end %>
 
 
 
