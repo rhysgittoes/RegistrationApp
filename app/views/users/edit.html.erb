@@ -2,6 +2,7 @@
    <button id=basic_information_button>Basic Info</button>
    <button id=location_information_button>Location Info</button>
    <button id=connection_information_button>Connection Info</button>
+   <button id=complete_area_button>Finish</button>
 </div>
 
 <br>
@@ -16,17 +17,22 @@
       </p>
       <p>Birthday:<br> <%=form.date_field :birthday %></p>
    </div>
-   <div id="location_information">
+
+   <div id="location_information" style="display: none">
       <p>Country:<br> <%= form.text_field :country %></p>
       <p>City:<br> <%= form.text_field :city %></p>
       <p>Postcode:<br> <%= form.text_field :postcode %></p>
    </div>
-   <div id="connection_information">
+
+   <div id="connection_information" style="display: none">
    <p>Internet Service Provide:<br> <%= form.text_field :isp %></p>
    <p>Bandwidth:<br> <%= form.text_field :bandwidth %></p>
    </div>
 
+   <div id="finish_area" style="display: none;">
+
    <%= form.submit "Update Your Profile", data: {confirm: "Are you sure all your imformation is correct?"}, class: "btn btn-outline-dark" %>
+   </div>
 <% end %>
 
 
