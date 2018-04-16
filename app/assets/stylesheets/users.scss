@@ -20,6 +20,7 @@
     //       box-shadow: 0 10px 6px -6px #777;
    transition-duration: 0.5s;
    padding-left: 1rem;
+   position: relative;
 
 }
 .form_navigation_button:hover{
@@ -32,6 +33,6 @@
    font-size: 2rem;
 }
 .chevron_container{
-   position: absolute;display:inline; top:-0.1rem; left: 22.5rem; font-size: 3.2rem; color: white;
+   position: absolute;display:inline; top:-0.2rem; left: 19.8rem; font-size: 3.2rem; color: white;
 }
 

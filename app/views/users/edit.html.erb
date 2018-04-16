@@ -10,31 +10,50 @@
    <div class="row">
       <div class="col-4">
 
-         <div style=" display: block;text-align: center; margin-top:2rem; width: 100%; position: relative;">
+         <div style=" display: block;text-align: center; margin-top:2rem; width: 100%;">
             
             <button class="form_navigation_button" id=basic_information_button>
+
                <div class="display-3 form_navigation_button_text">
                   Basic Information 
                </div>
-               <div class="chevron_container"">
+               <div class="chevron_container" id="basic_chevron_information_container" >
+                  <i class="fas fa-chevron-right"></i>
+               </div>
+
+
+            </button>
+
+            <button class="form_navigation_button" id="location_information_button">
+
+               <div class="display-3 form_navigation_button_text">
+                  Location Information
+               </div>
+               <div class="chevron_container" id="location_chevron_information_container" style="display: none;"  >
                   <i class="fas fa-chevron-right"></i>
                </div>
             </button>
 
-            <button class="form_navigation_button" id=location_information_button>
-               <div class="display-3 form_navigation_button_text">
-                  Location Information
-               </div>
-            </button>
-            <button class="form_navigation_button" id=connection_information_button>
+            <button class="form_navigation_button" id="connection_information_button">
+
                <div class="display-3 form_navigation_button_text">
                   Technical Details
                </div>
+               <div class="chevron_container" id="connection_chevron_information_container" style="display: none;" >
+                  <i class="fas fa-chevron-right"></i>
+               </div>
+
             </button>
-            <button class="form_navigation_button" id=complete_area_button>
+
+            <button class="form_navigation_button" id="complete_area_button">
+
                <div class="display-3 form_navigation_button_text">
                   Complete
                </div>
+               <div class="chevron_container" id="finish_chevron_information_container" style="display: none;" >
+                  <i class="fas fa-chevron-right"></i>
+               </div>
+
             </button>
          </div>
 
