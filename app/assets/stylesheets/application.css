@@ -61,3 +61,7 @@ input[type='password']{
    margin: 0 auto;
    width: 90% !important;
 }
+
+.modal-dialog-centered{
+   max-width: 100% !important;
+}

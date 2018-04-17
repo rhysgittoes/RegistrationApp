@@ -11,9 +11,8 @@
     <table class="table ">
       <thead>
         <tr>
-          <th scope="col">User ID</th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
           <th scope="col">Location</th>
           <th scope="col">ISP</th>
           <th scope="col">Bandwidth</th>
@@ -21,6 +20,7 @@
           <th scope="col">Paypal</th>
           <th scope="col">ISP Verification</th>
           <th scope="col">User Verification</th>
+          <th scope="col">Status</th>
           <th scope="col">Approve</th>
         </tr>
       </thead>
@@ -30,8 +30,7 @@
           <tr>
             <!-- <th scope="row">1</th> -->
             <td><%=u.id%></td>
-            <td><%=u.first_name%></td>
-            <td><%=u.last_name%></td>
+            <td><%=u.first_name%> <%=u.last_name%></td>
             <td><%=u.country%>, <%=u.city%>, <%=u.postcode%></td>
             <td><%=u.isp%></td>
             <td><%=u.bandwidth%></td>
@@ -39,18 +38,24 @@
             <td><%=u.paypal%></td>
             <td><button class="modal_button" id=<%=u.id.to_s%>>Open</button></td>
             <td><button class="modal_button_verf" id=<%=u.id.to_s%>>Open</button></td>
+            <td><%=u.form_status%></td>
+            
           </tr>
 
           <div class="modal fade" id="modal_id_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-              <img id="modal_image" src="<%= @users.find(id=u.id).isp_bill%>">
+              <div style="margin: 0 auto;">
+                <img id="modal_image" src="<%= @users.find(id=u.id).isp_bill%>">
+              </div>
             </div>
           </div>
 
 
           <div class="modal fade" id="modal_id_verf_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-              <img id="modal_image" src="<%= @users.find(id=u.id).verification_photo%>">
+              <div style="margin: 0 auto;">
+                <img id="modal_image" src="<%= @users.find(id=u.id).verification_photo%>">
+              </div>
             </div>
           </div>
 
