@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   def show   
    if auth
     @user = User.find_by_id(params[:id])
-      if @user.admin = true
+      if @user.admin == true
         @users = User.all
       else
       end

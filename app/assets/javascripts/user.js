@@ -150,10 +150,23 @@ document.addEventListener('turbolinks:load', function(){
     $("#connection_chevron_information_container").delay(700).fadeToggle(  "linear"); 
   });
 
-});
 
+
+
+
+// Lightbox admin stuff
+    $(".modal_button").click(function(){
+      $("#exampleModalCenter").modal();
+       var user_id = $(this).attr('id');
+       var user_image = "<%=@users.find(id="+ user_id +").isp_bill%>"
+       console.log(user_id) 
+       console.log(user_image)
+       // $("#modal_image").attr("src", user_image);
+    });
  
 
+
+});
 
 
      
