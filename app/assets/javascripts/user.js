@@ -156,11 +156,22 @@ document.addEventListener('turbolinks:load', function(){
 
 // Lightbox admin stuff
     $(".modal_button").click(function(){
-      $("#exampleModalCenter").modal();
-       var user_id = $(this).attr('id');
-       var modal_id = "#modal_id_" + user_id
-       console.log(modal_id)
+      var user_id = $(this).attr('id');
+      var modal_id = "#modal_id_" + user_id
        $(modal_id).modal();
+     
+
+       // var user_image = "<%=@users.find(id="+ user_id +").isp_bill%>"
+       // 
+       // console.log(user_image)
+       // $("#modal_image").attr("src", user_image);
+    });
+
+
+    $(".modal_button_verf").click(function(){
+      var user2_id = $(this).attr('id');
+      var modal2_id = "#modal_id_verf_" + user2_id
+       $(modal2_id).modal();
      
 
        // var user_image = "<%=@users.find(id="+ user_id +").isp_bill%>"
