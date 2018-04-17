@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
 
   def edit
-    if auth
+    if auth || current_user.admin == true
       @user = User.find_by_id(params[:id])
       if @user.form_status == "pending"
          redirect_to root_url, notice: "You cannot edit a submitted registration form"
@@ -41,22 +41,29 @@ class UsersController < ApplicationController
   end
 
   def update
-    if auth
-    @user = User.find_by_id(params[:id])
-      if @user.form_status == "pending"
-        redirect_to root_url, notice: "You cannot edit a submitted registration form"
-      else
-        @user.assign_attributes(allowed_params)
-        if @user.save
-          redirect_to user_path
+   
+    if auth || current_user.admin == true
+        @user = User.find_by_id(params[:id])
+        if @user.form_status == nil || current_user.admin == true
+            @user.assign_attributes(allowed_params)
+
+             if @user.save
+              redirect_to user_path
+
+            else
+              flash[:notice] = "Sorry, there was an error updating your information. Please try again."
+              redirect_to edit_user_path
+            end
+
         else
-          flash[:notice] = "Sorry, there was an error updating your information. Please try again."
-          redirect_to edit_user_path
+          redirect_to root_url, notice: "You cannot edit a submitted registration form"
+
+           
         end
-      end
-   else
-    redirect_to root_url, notice: 'You don\'t have access to view that page'
+    else
+      redirect_to root_url, notice: 'You don\'t have access to view that page'
     end
+
   end
 
 
@@ -67,6 +74,7 @@ private
   def allowed_params
   params.require(:user).permit(:email, :password, :password_confirmation,:first_name,:last_name,:country,:city,:postcode,:paypal,:isp,:bandwidth, :isp_bill, :verification_photo,:form_status)
   end
+
 end
 
 

@@ -39,6 +39,12 @@
             <td><button class="modal_button" id=<%=u.id.to_s%>>Open</button></td>
             <td><button class="modal_button_verf" id=<%=u.id.to_s%>>Open</button></td>
             <td><%=u.form_status%></td>
+            <td>
+              <%= form_for u do |form| %>
+                <%= form.hidden_field :form_status, :value => "approved"%>
+                <%= form.submit 'Approve' %>
+              <%end%>
+            </td>
             
           </tr>
 
