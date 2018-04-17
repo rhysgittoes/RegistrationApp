@@ -13,20 +13,15 @@ class UsersController < ApplicationController
       render :new
     end
   end
-  
-  # before_action :authorize
-
 
 
   def show   
-   if params[:id].to_i == session[:user_id] 
+   if auth
     @user = User.find_by_id(params[:id])
    else
     redirect_to root_url, notice: 'You don\'t have access to view that page'
     end
   end
-
-
 
 
   def edit
@@ -41,7 +36,6 @@ class UsersController < ApplicationController
     #   flash[:notice] = "Sorry, there was an error updating your information. Please try again."
     #   redirect_to edit_user_path, :flash => { :notice => "Sorry, there was an error updating your information. Please try again." }
       # end
-
       
     if @user.save
         redirect_to user_path
@@ -50,6 +44,9 @@ class UsersController < ApplicationController
         redirect_to edit_user_path
     end
   end
+
+
+
 
 private
 
