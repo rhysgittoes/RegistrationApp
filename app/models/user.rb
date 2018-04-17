@@ -3,7 +3,7 @@ class User < ApplicationRecord
    mount_uploader :isp_bill, IspBillUploader
    mount_uploader :verification_photo, VerificationImageUploader
 
-   validates :first_name, presence: true, on: :update, on: :update
+   validates :first_name, presence: true, on: :update
    validates :country, presence: true, on: :update
    validates :city, presence: true, on: :update
    validates :postcode, presence: true, on: :update

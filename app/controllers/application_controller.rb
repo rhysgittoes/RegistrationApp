@@ -1,8 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-   
-
-
 
 
    def logged_in?
@@ -10,4 +7,11 @@ class ApplicationController < ActionController::Base
    end
    helper_method :logged_in?
 
+
+
+  # def authorize
+  #   redirect_to root_url unless logged_in?
+  # end
+
 end
+

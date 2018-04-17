@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416055313) do
+ActiveRecord::Schema.define(version: 20180417032601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20180416055313) do
     t.string "paypal"
     t.string "isp_bill"
     t.string "verification_photo"
+    t.string "form_status"
+    t.boolean "approved", default: false
   end
 
 end

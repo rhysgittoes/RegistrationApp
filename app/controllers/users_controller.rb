@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def new
     @user = User.new
   end
@@ -12,24 +13,34 @@ class UsersController < ApplicationController
       render :new
     end
   end
+  
+  # before_action :authorize
 
-  def show
+
+
+  def show   
+   if params[:id].to_i == session[:user_id] 
     @user = User.find_by_id(params[:id])
+   else
+    redirect_to root_url, notice: 'You don\'t have access to view that page'
+    end
   end
+
+
+
 
   def edit
     @user = User.find_by_id(params[:id])
   end
 
   def update
-
     @user = User.find_by_id(params[:id])
     @user.assign_attributes(allowed_params) 
     
     # if @user.errors.any?
     #   flash[:notice] = "Sorry, there was an error updating your information. Please try again."
     #   redirect_to edit_user_path, :flash => { :notice => "Sorry, there was an error updating your information. Please try again." }
-    # end
+      # end
 
       
     if @user.save
@@ -43,7 +54,7 @@ class UsersController < ApplicationController
 private
 
   def allowed_params
-  params.require(:user).permit(:email, :password, :password_confirmation,:first_name,:last_name,:country,:city,:postcode,:paypal,:isp,:bandwidth, :isp_bill, :verification_photo)
+  params.require(:user).permit(:email, :password, :password_confirmation,:first_name,:last_name,:country,:city,:postcode,:paypal,:isp,:bandwidth, :isp_bill, :verification_photo,:form_status)
   end
 end
 
