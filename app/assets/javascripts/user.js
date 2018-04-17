@@ -158,9 +158,14 @@ document.addEventListener('turbolinks:load', function(){
     $(".modal_button").click(function(){
       $("#exampleModalCenter").modal();
        var user_id = $(this).attr('id');
-       var user_image = "<%=@users.find(id="+ user_id +").isp_bill%>"
-       console.log(user_id) 
-       console.log(user_image)
+       var modal_id = "#modal_id_" + user_id
+       console.log(modal_id)
+       $(modal_id).modal();
+     
+
+       // var user_image = "<%=@users.find(id="+ user_id +").isp_bill%>"
+       // 
+       // console.log(user_image)
        // $("#modal_image").attr("src", user_image);
     });
  
