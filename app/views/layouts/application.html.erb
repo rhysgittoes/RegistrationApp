@@ -15,7 +15,9 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Private π</a>
+      <a class="navbar-brand" href="<%= root_url %>">Private π</a>
+
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -66,6 +68,13 @@
       </div>
     </nav>
 
+
+    <%if flash[:notice]%>
+      <div style="width: 100%; text-align: center; background-color: #9b59b6; color: white; padding-top: 1rem; padding-bottom: 1rem;">
+        <%= flash[:notice] %>
+      </div>
+    <%end%>
+
     <%= yield %>
 
   
@@ -84,15 +93,15 @@
           <legend>Basic details</legend>
           <div class="field">
             <%= f.label :email %><br />
-            <%= f.text_field :email %>
+            <%= f.text_field :email, class: 'home_page_text_field' %>
           </div>
           <div class="field">
             <%= f.label :password %><br />
-            <%= f.password_field :password %>
+            <%= f.password_field :password, class: 'home_page_text_field' %>
           </div>
           <div class="field">
             <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation %>
+            <%= f.password_field :password_confirmation, class: 'home_page_text_field' %>
           </div>
           <div class="centered_text submit-field">
             <%= f.submit  class: " btn btn-outline-success"%>
@@ -124,11 +133,11 @@
           <%= form_tag sessions_path do %>
             <div class="label">Email</div>
             <div class="form_input_container" >
-              <%= text_field_tag :email, params[:email], :class => "form_input" %>
+              <%= text_field_tag :email, params[:email], class: 'home_page_text_field' %>
             </div>
             <div class="label">Password</div>
             <div class="form_input_container">
-              <%= password_field_tag :password %>
+              <%= password_field_tag :password , class: 'home_page_text_field'%>
             </div>
             <!-- <div class="actions"></div> -->
           
