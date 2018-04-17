@@ -1,8 +1,65 @@
 <%if @user.admin = true%>
 <!-- Admin User Show -->
-<% @users.each do |f|%>
-<%=f.email%>
-<%end%>
+  <div style="margin-left: 1rem; margin-top: 1rem; margin-right: 1rem;">
+    <div class="row">
+      <div class="col-12">
+         <h2>Admin Dashboard</h2>
+      </div>  
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">User ID</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Location</th>
+          <th scope="col">ISP</th>
+          <th scope="col">Bandwidth</th>
+          <th scope="col">Email</th>
+          <th scope="col">Paypal</th>
+          <th scope="col">ISP Verification</th>
+          <th scope="col">User Verification</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <% @users.where(form_status: "pending").each do |u|%>
+          <tr>
+            <!-- <th scope="row">1</th> -->
+            <td><%=u.id%></td>
+            <td><%=u.first_name%></td>
+            <td><%=u.last_name%></td>
+            <td><%=u.country%>, <%=u.city%>, <%=u.postcode%></td>
+            <td><%=u.isp%></td>
+            <td><%=u.bandwidth%></td>
+            <td><%=u.email%></td>
+            <td><%=u.paypal%></td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+
+
+
+ 
+    <%#=u.id%>
+    <%#=u.email%>
+    <%#=u.first_name%>
+    <%#=u.last_name%>
+    <%#=u.country%>
+    <%#=u.city%>
+    <%#=u.postcode%>
+    <%#=u.isp%>
+    <%#=u.bandwidth%>
+    <%#=u.paypal%>
+    <%#= image_tag u.verification_photo%>
+    <%#= image_tag u.isp_bill%>
+
+
+
+
 
   
 
