@@ -1,75 +1,85 @@
-<br>
-<div class="container">
-   <div class="row">
-      <div class="col-12">
-         <h2>Your Dashboard</h3>
-      </div> 
-   </div>
-   <br>
-   <div class="row">
-      <div class="col-9">
-      <h3>Status</h3>
+<%if @user.admin = true%>
+<!-- Admin User Show -->
+<% @users.each do |f|%>
+<%=f.email%>
+<%end%>
 
-       <div>
-          Current IP: <%= request.env['REMOTE_ADDR']%>
+  
+
+
+
+<%else%>
+<!-- Normal User Show -->
+  <br>
+  <div class="container">
+     <div class="row">
+        <div class="col-12">
+           <h2>Your Dashboard</h3>
+        </div> 
+     </div>
+     <br>
+     <div class="row">
+        <div class="col-9">
+        <h3>Status</h3>
+
+         <div>
+            Current IP: <%= request.env['REMOTE_ADDR']%>
+           <br>
+           <% country = GeoIP.new('GeoIP.dat').country("210.195.39.201") %>
+           <!-- ^^TESTING must change later -->      
+           Country:<%= country.country_name%>
+           
+           <br>
+           City:<% city = GeoIP.new('GeoLiteCity.dat').city("210.195.39.201")%> 
+           <!-- ^^TESTING must change later -->      
+           <%= city.city_name%>
+           <br>
+           Time Zone: <%=city.timezone%>
+         </div>
          <br>
-         <% country = GeoIP.new('GeoIP.dat').country("210.195.39.201") %>
-         <!-- ^^TESTING must change later -->      
-         Country:<%= country.country_name%>
-         
-         <br>
-         City:<% city = GeoIP.new('GeoLiteCity.dat').city("210.195.39.201")%> 
-         <!-- ^^TESTING must change later -->      
-         <%= city.city_name%>
-         <br>
-         Time Zone: <%=city.timezone%>
-       </div>
-       <br>
-       <div id="map">   
-       </div>
-      </div>
-      <div class="col-3">
-      <h3>Registration Status</h3>
-          <div>
-            <p>Name: <%#=@user.first_name%>
-            <%#=@user.last_name%></p>
+         <div id="map">   
+         </div>
+        </div>
+        <div class="col-3">
+        <h3>Registration Status</h3>
+            <div>
+              <p>Name: <%#=@user.first_name%>
+              <%#=@user.last_name%></p>
 
-            <p>Country: <%#=@user.country%></p>
-            <p>City: <%#=@user.city%></p>
-            <p>Postcode: <%#=@user.postcode%></p>
-            <p>Paypal: <%#=@user.paypal%></p>
-            <p>ISP: <%#=@user.isp%></p>
-            <p>Bandwidth<%#=@user.bandwidth%></p>
+              <p>Country: <%#=@user.country%></p>
+              <p>City: <%#=@user.city%></p>
+              <p>Postcode: <%#=@user.postcode%></p>
+              <p>Paypal: <%#=@user.paypal%></p>
+              <p>ISP: <%#=@user.isp%></p>
+              <p>Bandwidth<%#=@user.bandwidth%></p>
 
-          </div>
+            </div>
 
-      <%= button_to "Complete Registration", edit_user_url, method: :get%>
-      </div>
-   </div>
-</div>
+        <%= button_to "Complete Registration", edit_user_url, method: :get%>
+        </div>
+     </div>
+  </div>
+
+    <script>
+          function initMap() {
+            var uluru = {lat: <%=city.latitude%>, lng: <%=city.longitude%>};
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 10,
+              center: uluru
+            });
+            var marker = new google.maps.Marker({
+              position: uluru,
+              map: map
+            });
+          }
+        </script>
 
 
-
-
-
-<script>
-      function initMap() {
-        var uluru = {lat: <%=city.latitude%>, lng: <%=city.longitude%>};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
+    <!-- Dont know how this is working without a key? -->
+    <script async defer
+    src=<%="https://maps.googleapis.com/maps/api/js?key="+ENV['google_key']+"&callback=initMap"%>
     </script>
 
-
-<!-- Dont know how this is working without a key? -->
-<script async defer
-src=<%="https://maps.googleapis.com/maps/api/js?key="+ENV['google_key']+"&callback=initMap"%>
-</script>
+<%end%>
 
 
