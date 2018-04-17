@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
    end
    helper_method :logged_in?
 
+
    def auth
       params[:id].to_i == session[:user_id] 
    end
