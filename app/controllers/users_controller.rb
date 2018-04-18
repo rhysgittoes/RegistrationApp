@@ -48,31 +48,37 @@ class UsersController < ApplicationController
     end
   end
 
+
+
   def update
    
     if auth || admin
-
         @user = User.find_by_id(params[:id])
-        if @user.form_status == nil || admin
-
-            @user.assign_attributes(allowed_params)
-
-             if @user.save
-              redirect_to root_url
-            else
-              flash[:notice] = "Sorry, there was an error updating your information. Please try again."
-              redirect_to edit_user_path
-            end
-
-        else
-          redirect_to root_url, notice: "You cannot edit a submitted registration form"
-
-           
-        end
     else
       redirect_to root_url, notice: 'You don\'t have access to view that page'
     end
 
+
+    if admin
+      @user.assign_attributes(allowed_params)
+      @user.save(validate: false)
+      redirect_to root_url
+      
+    else
+
+      if @user.form_status == nil 
+        @user.assign_attributes(allowed_params)
+      else
+        redirect_to root_url, notice: "You cannot edit a submitted registration form"  
+      end
+
+      if @user.save
+        redirect_to root_url
+      else
+        flash[:notice] = "Sorry, there was an error updating your information. Please try again."
+          redirect_to edit_user_path
+      end
+    end
   end
 
 
