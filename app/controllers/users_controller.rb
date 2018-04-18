@@ -16,25 +16,33 @@ class UsersController < ApplicationController
 
 
   def show   
-   if auth
+   if auth || admin
     @user = User.find_by_id(params[:id])
-      if @user.admin == true
-        @users = User.all
-      else
-      end
    else
     redirect_to root_url, notice: 'You don\'t have access to view that page'
     end
+
+    if admin
+        @users = User.all
+    else
+    end
+
   end
 
 
   def edit
-    if auth || current_user.admin == true
-      @user = User.find_by_id(params[:id])
-      if @user.form_status == "pending"
-         redirect_to root_url, notice: "You cannot edit a submitted registration form"
-      else
-      end
+    @user = User.find_by_id(params[:id])
+    if @user.form_status == "pending" 
+       redirect_to root_url, notice: "You cannot edit a submitted registration form"
+    else
+    end
+
+    if @user.form_status == "approved" 
+       redirect_to root_url, notice: "Your registration is already complete"
+    else
+    end
+
+    if auth || admin
     else
       redirect_to root_url, notice: 'You don\'t have access to view that page'
     end
@@ -42,14 +50,15 @@ class UsersController < ApplicationController
 
   def update
    
-    if auth || current_user.admin == true
+    if auth || admin
+
         @user = User.find_by_id(params[:id])
-        if @user.form_status == nil || current_user.admin == true
+        if @user.form_status == nil || admin
+
             @user.assign_attributes(allowed_params)
 
              if @user.save
-              redirect_to user_path
-
+              redirect_to root_url
             else
               flash[:notice] = "Sorry, there was an error updating your information. Please try again."
               redirect_to edit_user_path

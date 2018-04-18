@@ -1,5 +1,5 @@
 
-<%if @user.admin == true %>
+<%if admin %>
 <!-- Admin User Show -->
   <div style="margin-left: 1rem; margin-top: 1rem; margin-right: 1rem;">
     <div class="row">
@@ -26,30 +26,33 @@
       </thead>
   
       <tbody>
-        <%@users.where(form_status: "pending").each do |u|%>
-          <tr>
-            <!-- <th scope="row">1</th> -->
-            <td><%=u.id%></td>
-            <td><%=u.first_name%> <%=u.last_name%></td>
-            <td><%=u.country%>, <%=u.city%>, <%=u.postcode%></td>
-            <td><%=u.isp%></td>
-            <td><%=u.bandwidth%></td>
-            <td><%=u.email%></td>
-            <td><%=u.paypal%></td>
-            <td><button class="modal_button" id=<%=u.id.to_s%>>Open</button></td>
-            <td><button class="modal_button_verf" id=<%=u.id.to_s%>>Open</button></td>
-            <td><%=u.form_status%></td>
-            <td>
-              <%= form_for u do |form| %>
-                <%= form.hidden_field :form_status, :value => "approved"%>
-                <%= form.submit 'Approve' %>
-              <%end%>
-            </td>
-            
-          </tr>
+
+          <%@users.where(form_status: "pending").each do |u|%>
+            <tr>
+              <!-- <th scope="row">1</th> -->
+              <td><%=u.id%></td>
+              <td><%=u.first_name%> <%=u.last_name%></td>
+              <td><%=u.country%>, <%=u.city%>, <%=u.postcode%></td>
+              <td><%=u.isp%></td>
+              <td><%=u.bandwidth%></td>
+              <td><%=u.email%></td>
+              <td><%=u.paypal%></td>
+              <td><button class="modal_button" id=<%=u.id.to_s%>>Open</button></td>
+              <td><button class="modal_button_verf" id=<%=u.id.to_s%>>Open</button></td>
+              <td><%=u.form_status%></td>
+              <td>
+                <%= form_for u do |form| %>
+                  <%= form.hidden_field :form_status, :value => "approved"%>
+                  <%= form.hidden_field :approved, :value => true%>
+                  <%= form.submit 'Approve' %>
+              </td> 
+            </tr>
+          <%end%>
+      
+
 
           <div class="modal fade" id="modal_id_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered nice" role="document">
               <div style="margin: 0 auto;">
                 <img id="modal_image" src="<%= @users.find(id=u.id).isp_bill%>">
               </div>
@@ -58,7 +61,7 @@
 
 
           <div class="modal fade" id="modal_id_verf_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered nice" role="document">
               <div style="margin: 0 auto;">
                 <img id="modal_image" src="<%= @users.find(id=u.id).verification_photo%>">
               </div>
