@@ -8,7 +8,7 @@
 
 }
 .form_navigation_button{
-   background-color: #a55eea;
+   background-color: #20bf6b;
    text-align: left;
    color: white;
    width: 90%;
@@ -18,7 +18,7 @@
     // -webkit-box-shadow: 0 10px 6px -6px #777;
     //  -moz-box-shadow: 0 10px 6px -6px #777;
     //       box-shadow: 0 10px 6px -6px #777;
-   transition-duration: 0.5s;
+   transition-duration: 0.3s;
    padding-left: 1rem;
    position: relative;
    border-style: none;
@@ -65,4 +65,8 @@
 .form_label{
  font-size: 1.3rem;
  font-style: italic;
+}
+
+input[type='file']{
+   margin-right: -7rem;
 }

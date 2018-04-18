@@ -3,7 +3,7 @@
 <div class="col-12">
    <div class="row" style="margin-bottom: -0.5rem; margin-top: 0.5rem;">
       <div class="col-4" style="text-align: center;">
-         <div style="width: 85%;margin:0 auto;">
+         <div style="width: 90%;margin:0 auto;">
             <h3 class="display-3" style="font-size: 2rem; text-align: left;">Registration</h3>
          </div>
       </div>
@@ -72,7 +72,7 @@
                </p>
                <p><span class="form_label">Last name:</span><br> <%= form.text_field :last_name, placeholder: "Last name*", class: 'register_form_field'%></p>
                <p><span class="form_label">Paypal:</span><br> <%= form.text_field :paypal,placeholder: "Paypal Address*", class: 'register_form_field' %></p>
-
+               <hr>
                <button id=from_basic_information_to_location_information>Next</button> 
 
             </div>
@@ -82,7 +82,7 @@
                <p><span class="form_label">Country:</span><br> <%= form.text_field :country ,placeholder: "Country*", class: 'register_form_field'%></p>
                <p><span class="form_label">City:</span><br> <%= form.text_field :city,placeholder: "City*", class: 'register_form_field' %></p>
                <p><span class="form_label">Postcode:</span><br> <%= form.text_field :postcode,placeholder: "Postcode*", class: 'register_form_field' %></p>
-
+               <hr>
                <button id="from_location_to_basic_information"%>Previous</button> 
                <button id="from_location_to_connection_information"%>Next</button>
                
@@ -94,14 +94,18 @@
                <p><span class="form_label">Internet Service Provide:</span><br> <%= form.text_field :isp,placeholder: "ISP Name*", class: 'register_form_field'%></p>
                <p><span class="form_label">Bandwidth:</span><br> <%= form.text_field :bandwidth,placeholder: "Bandwidth*", class: 'register_form_field' %></p>
 
-
-
-               <p>
-                  <span class="form_label">ISP Bill:</span><br> <%= form.file_field :isp_bill %>
-                  <span class="form_label">Verification Photo:</span><br> <%= form.file_field :verification_photo %>
+               <br>
+               <h2 class="display-3" style="font-size:2rem;">Verification </h2>
+               <hr>
+               <h2 class="display-3" style="font-size:1.2rem;">Please upload the neccesary documents </h2>
+               <p style="font-size:1rem;">For the verification photo please provide a scan/image of a Utility bill, Passport or Bank Statement<p>
+               <p style="text-align: center; margin-top: 0.8rem;">
+                  <span class="form_label">ISP Bill: </span><%= form.file_field :isp_bill%>
+                  <span class="form_label">Verification Photo: </span><%= form.file_field :verification_photoß%>
                </p>
 
                <%= form.hidden_field :form_status, :value => "pending"%>
+               <hr>
                <button id="from_connection_to_location_information"%>Previous</button> 
                <button id=from_connection_to_finish_area>Next</button>
             </div>
@@ -109,7 +113,7 @@
             <div class="form_panel"  id="finish_area" style="display: none; text-align: center;">
                <h3 class="display-3" style="font-size: 3rem;">Terms and Conditions</h3>
                   <hr>
-               <div style="text-align: center; width: 80%; margin: 0 auto; overflow: auto; max-height: 25rem; margin-top: 1rem; margin-bottom: 1rem;" id="TOC_container">
+               <div style="text-align: center; width: 80%; margin: 0 auto; overflow: auto; max-height: 20rem; margin-top: 1rem; margin-bottom: 1rem;" id="TOC_container">
              
                   <p style="">CONDITIONS OF USE<br>Welcome to our online store! My Private Network and its associates provide their services to you subject to the following conditions. If you visit or shop within this website, you accept these conditions. Please read them carefully. ​
 
@@ -143,8 +147,8 @@ YOUR MEMBERSHIP ACCOUNT
 <br>
 If you use this site, you are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer, and you agree to accept responsibility for all activities that occur under your account or password. If you are under 18, you may use our website only with involvement of a parent or guardian. My Private Network and its associates reserve the right to refuse service, terminate accounts, remove or edit content, or cancel orders in their sole discretion.</p>
                </div>
-               <%= form.submit "Update Your Profile", data: {confirm: "Are you sure all your imformation is correct?"}, class: "btn btn-outline-dark" %>
-
+               <%= form.submit "Update Your Profile", data: {confirm: "Are you sure all your imformation is correct? A submitted form cannot be re-edited"}, class: "btn btn-outline-dark" %>
+               <hr>
                <button id="from_finish_to_connection_information"%>Previous</button> 
             </div>
          <% end %>

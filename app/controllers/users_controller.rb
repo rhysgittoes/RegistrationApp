@@ -75,7 +75,7 @@ class UsersController < ApplicationController
       if @user.save
         redirect_to root_url
       else
-        flash[:notice] = "Sorry, there was an error updating your information. Please try again."
+        flash[:notice] = "Sorry, there was an error updating your information. Please ensure all fields are filled and try again. "
           redirect_to edit_user_path
       end
     end
