@@ -135,7 +135,7 @@
               <div>
                  <h3>Registration Status</h3>
                 <%if @user.form_status == nil%>
-                  <div style=" border-style: solid; border-color: #fc5c65; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-radius: 5px; color: #fc5c65;">
+                  <div style=" border-style: solid; border-color: #fc5c65; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-top: 0.4rem; padding-bottom: 0.4rem; border-radius: 5px; color: #fc5c65;">
                     Registration not completed
                   </div>
                   <%=button_to "Complete Registration", edit_user_url, method: :get, class: "btn btn-outline-dark black_btn"%>
@@ -143,32 +143,92 @@
                 <%end%>
 
                 <%if @user.form_status == "pending"%>
-                  <div style="border-style: solid; border-color: #fed330;  border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem;  padding-top: 0.5rem;padding-bottom: 0.5rem; border-radius: 5px; color: #fed330">
+                  <div style="border-style: solid; border-color: #fed330;  border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem;  padding-top: 0.4rem;padding-bottom: 0.4rem; border-radius: 5px; color: #fed330">
                     Registration Pending
                   </div>
-                  <p>Name: <%=@user.first_name%>
-                  <%=@user.last_name%></p>
-                  <p>Country: <%=@user.country%></p>
-                  <p>City: <%=@user.city%></p>
-                  <p>Postcode: <%=@user.postcode%></p>
-                  <p>Paypal: <%=@user.paypal%></p>
-                  <p>ISP: <%=@user.isp%></p>
-                  <p>Bandwidth<%=@user.bandwidth%></p>
+                  <table class="table ">
+                    <thead>
+                      <tr>
+                        <th scope="col">Field</th>
+                        <th scope="col">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Name</td>
+                        <td><%=@user.first_name%> <%=@user.last_name%></td>
+                      </tr>  
+                       <tr>
+                        <td>Paypal</td>
+                        <td><%=@user.paypal%></td>
+                      </tr> 
+                      <tr>
+                        <td>Country</td>
+                        <td><%=@user.country%></td>
+                      </tr>  
+                      <tr>
+                        <td>City</td>
+                        <td><%=@user.city%></td>
+                      </tr> 
+                      <tr>
+                        <td>Postcode</td>
+                        <td><%=@user.postcode%></td>
+                      </tr> 
+                      <tr> 
+                        <td>ISP</td>
+                        <td><%=@user.isp%></td>
+                      </tr> 
+                      <tr> 
+                        <td>Bandwidth</td>
+                        <td><%=@user.bandwidth%></td>
+                      </tr>   
+                    </tbody>
+                </table>
                 <%else%>
                 <%end%>
 
                 <%if @user.form_status == "approved"%>
-                  <div style="border-style: solid; border-color: #26de81; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem;  padding-top: 0.5rem; padding-bottom: 0.5rem; border-radius: 5px; color: #26de81;">
+                  <div style="border-style: solid; border-color: #26de81; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem;  padding-top: 0.4rem; padding-bottom: 0.4rem; border-radius: 5px; color: #26de81;">
                     Registration Approved
                   </div>
-                  <p>Name: <%=@user.first_name%>
-                  <%=@user.last_name%></p>
-                  <p>Country: <%=@user.country%></p>
-                  <p>City: <%=@user.city%></p>
-                  <p>Postcode: <%=@user.postcode%></p>
-                  <p>Paypal: <%=@user.paypal%></p>
-                  <p>ISP: <%=@user.isp%></p>
-                  <p>Bandwidth<%=@user.bandwidth%></p>
+                  <table class="table ">
+                    <thead>
+                      <tr>
+                        <th scope="col">Field</th>
+                        <th scope="col">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Name</td>
+                        <td><%=@user.first_name%> <%=@user.last_name%></td>
+                      </tr>  
+                       <tr>
+                        <td>Paypal</td>
+                        <td><%=@user.paypal%></td>
+                      </tr> 
+                      <tr>
+                        <td>Country</td>
+                        <td><%=@user.country%></td>
+                      </tr>  
+                      <tr>
+                        <td>City</td>
+                        <td><%=@user.city%></td>
+                      </tr> 
+                      <tr>
+                        <td>Postcode</td>
+                        <td><%=@user.postcode%></td>
+                      </tr> 
+                      <tr> 
+                        <td>ISP</td>
+                        <td><%=@user.isp%></td>
+                      </tr> 
+                      <tr> 
+                        <td>Bandwidth</td>
+                        <td><%=@user.bandwidth%></td>
+                      </tr>   
+                    </tbody>
+                  </table>
                 <%else%>
                 <%end%>
               </div>
