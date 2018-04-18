@@ -102,46 +102,84 @@
      </div>
      <br>
      <div class="row">
-        <div class="col-9">
-        <h3>Status</h3>
+        <div class="col-8">
+              <h3>Status</h3>
 
-         <div>
-            Current IP: <%= request.env['REMOTE_ADDR']%>
-           <br>
-           <% country = GeoIP.new('GeoIP.dat').country("210.195.39.201") %>
-           <!-- ^^TESTING must change later -->      
-           Country:<%= country.country_name%>
-           
-           <br>
-           City:<% city = GeoIP.new('GeoLiteCity.dat').city("210.195.39.201")%> 
-           <!-- ^^TESTING must change later -->      
-           <%= city.city_name%>
-           <br>
-           Time Zone: <%=city.timezone%>
-         </div>
-         <br>
-         <div id="map">   
-         </div>
+              <table class="table ">
+                <thead>
+                  <tr>
+                    <th scope="col">Current IP</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Timezone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><%= request.env['REMOTE_ADDR']%></td>
+                    <td><%country = GeoIP.new('GeoIP.dat').country("210.195.39.201") %><%= country.country_name%></td>
+                    <td><%city = GeoIP.new('GeoLiteCity.dat').city("210.195.39.201")%><%= city.city_name%></td>
+                    <td><%=city.timezone%></td>
+                  </tr>   
+                </tbody>
+              </table>
+        
+        <h2>Orders</h3>
+
+
+               
         </div>
-        <div class="col-3">
-        <h3>Registration Status</h3>
-            <div>
-              <%if @user.form_status != nil%>
-                <p>Name: <%=@user.first_name%>
-                <%=@user.last_name%></p>
-                <p>Country: <%=@user.country%></p>
-                <p>City: <%=@user.city%></p>
-                <p>Postcode: <%=@user.postcode%></p>
-                <p>Paypal: <%=@user.paypal%></p>
-                <p>ISP: <%=@user.isp%></p>
-                <p>Bandwidth<%=@user.bandwidth%></p>
 
-              <%else%>
-              <%end%>
 
-            </div>
+        <div class="col-4">
+              <div>
+                 <h3>Registration Status</h3>
+                <%if @user.form_status == nil%>
+                  <div style=" border-style: solid; border-color: #fc5c65; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-radius: 5px; color: #fc5c65;">
+                    Registration not completed
+                  </div>
+                  <%=button_to "Complete Registration", edit_user_url, method: :get, class: "btn btn-outline-dark black_btn"%>
+                <%else%>
+                <%end%>
 
-        <%= button_to "Complete Registration", edit_user_url, method: :get%>
+                <%if @user.form_status == "pending"%>
+                  <div style="border-style: solid; border-color: #fed330;  border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-radius: 5px; color: #fed330">
+                    Registration Pending
+                  </div>
+                  <p>Name: <%=@user.first_name%>
+                  <%=@user.last_name%></p>
+                  <p>Country: <%=@user.country%></p>
+                  <p>City: <%=@user.city%></p>
+                  <p>Postcode: <%=@user.postcode%></p>
+                  <p>Paypal: <%=@user.paypal%></p>
+                  <p>ISP: <%=@user.isp%></p>
+                  <p>Bandwidth<%=@user.bandwidth%></p>
+                <%else%>
+                <%end%>
+
+                <%if @user.form_status == "approved"%>
+                  <div style="border-style: solid; border-color: #26de81; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-radius: 5px; color: #26de81;">
+                    Registration Approved
+                  </div>
+                  <p>Name: <%=@user.first_name%>
+                  <%=@user.last_name%></p>
+                  <p>Country: <%=@user.country%></p>
+                  <p>City: <%=@user.city%></p>
+                  <p>Postcode: <%=@user.postcode%></p>
+                  <p>Paypal: <%=@user.paypal%></p>
+                  <p>ISP: <%=@user.isp%></p>
+                  <p>Bandwidth<%=@user.bandwidth%></p>
+                <%else%>
+                <%end%>
+              </div>
+
+              <div style="margin-top: 2rem;">
+                <h3>Location Status</h3>
+                <div id="map" style="margin-top: 1rem;">   
+                </div>
+              </div>
+
+
         </div>
      </div>
   </div>

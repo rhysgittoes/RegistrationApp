@@ -80,9 +80,10 @@ document.addEventListener('turbolinks:load', function(){
    });
 
 
+
+
+
   // Next buttons
-
-
 
   $("#from_basic_information_to_location_information").click(function(event){
     event.preventDefault()

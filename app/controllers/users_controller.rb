@@ -63,7 +63,8 @@ class UsersController < ApplicationController
       @user.assign_attributes(allowed_params)
       @user.save(validate: false)
       redirect_to root_url
-      
+  
+
     else
 
       if @user.form_status == nil 
