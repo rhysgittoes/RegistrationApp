@@ -3,7 +3,7 @@
 <div class="col-12">
    <div class="row" style="margin-bottom: -0.5rem; margin-top: 0.5rem;">
       <div class="col-4" style="text-align: center;">
-         <div style="width: 80%;margin:0 auto;">
+         <div style="width: 85%;margin:0 auto;">
             <h3 class="display-3" style="font-size: 2rem; text-align: left;">Registration</h3>
          </div>
       </div>
@@ -13,58 +13,47 @@
 </div>
 
 
-<div class="col-12">
+<div class="col-12" style="margin-top: 1rem;">
    <div class="row">
-      <div class="col-4" style="margin-right: -1rem;">
+      <div class="col-4" style="//margin-right: -1rem;">
 
-         <div style=" display: block;text-align: center; margin-top:1.5rem; width: 100%;">
-        
-            <button class="form_navigation_button" id=basic_information_button>
-               <div class="row">
-                  <div class="col-1">
-                     <h3  class="display-3" style="font-size:2rem">1</h3>
+         <div style=" display: block;text-align: center;  width: 100%; background-color: #2c3e50; padding-top: 1rem;padding-bottom: 0.6rem;">
+               <button class="form_navigation_button" id=basic_information_button>
+                 <div class="display-3 form_navigation_button_text">
+                     Basic Information
                   </div>
 
-                     <div class="col-11">
-                        <div class="row">
-                           <div class="display-3 form_navigation_button_text">
-                              Account
-                           </div>
-                           <div style="font-size: 1rem">
-                              Basic Information 
-                           </div>
-                        </div>
-                     </div>
-               </div>
+                  <div class="chevron_container" id="basic_chevron_information_container" >
+                     <i class="fas fa-chevron-right"></i>
+                  </div>
+               </button>
 
-               <div class="chevron_container" id="basic_chevron_information_container" >
-                  <i class="fas fa-chevron-right"></i>
-               </div>
-            </button>
-            <button class="form_navigation_button" id="location_information_button">
-               <div class="display-3 form_navigation_button_text">
-                  Location Information
-               </div>
-               <div class="chevron_container" id="location_chevron_information_container" style="display: none;"  >
-                  <i class="fas fa-chevron-right"></i>
-               </div>
-            </button>
-            <button class="form_navigation_button" id="connection_information_button">
-               <div class="display-3 form_navigation_button_text">
-                  Technical Details
-               </div>
-               <div class="chevron_container" id="connection_chevron_information_container" style="display: none;" >
-                  <i class="fas fa-chevron-right"></i>
-               </div>
-            </button>
-            <button class="form_navigation_button" id="complete_area_button">
-               <div class="display-3 form_navigation_button_text">
-                  Complete
-               </div>
-               <div class="chevron_container" id="finish_chevron_information_container" style="display: none;" >
-                  <i class="fas fa-chevron-right"></i>
-               </div>
-            </button>
+               <button class="form_navigation_button" id="location_information_button">
+                  <div class="display-3 form_navigation_button_text">
+                     Location Information
+                  </div>
+
+                  <div class="chevron_container" id="location_chevron_information_container" style="display: none;"  >
+                     <i class="fas fa-chevron-right"></i>
+                  </div>
+               </button>
+
+               <button class="form_navigation_button" id="connection_information_button">
+                  <div class="display-3 form_navigation_button_text">
+                     Technical Details
+                  </div>
+                  <div class="chevron_container" id="connection_chevron_information_container" style="display: none;" >
+                     <i class="fas fa-chevron-right"></i>
+                  </div>
+               </button>
+               <button class="form_navigation_button" id="complete_area_button">
+                  <div class="display-3 form_navigation_button_text">
+                     Complete
+                  </div>
+                  <div class="chevron_container" id="finish_chevron_information_container" style="display: none;" >
+                     <i class="fas fa-chevron-right"></i>
+                  </div>
+               </button>
          </div>
 
       </div>
@@ -73,24 +62,26 @@
 
 
 
-      <div class="col-8" style="margin-left: -1rem;">
-         <br>
+      <div class="col-8" style="margin-left: -0.4rem; margin-right: 0.4rem;">
          <%= form_for @user do |form| %>
             <div class="form_panel" id="basic_information" style="display: block;">
                <h2 class="display-3" style="font-size: 2rem;">Please provide your basic information</h2>
                <hr>
-               <p class="big_form">First name: <br><%= form.text_field :first_name, placeholder: "First name", class: 'register_form_field' %></p>
-               <p>Last name:<br> <%= form.text_field :last_name, placeholder: "Last name", class: 'register_form_field'%></p>
+               <p><span class="form_label">First name:</span><br>
+                  <%= form.text_field :first_name, placeholder: "First name*", class: 'register_form_field' %>
+               </p>
+               <p><span class="form_label">Last name:</span><br> <%= form.text_field :last_name, placeholder: "Last name*", class: 'register_form_field'%></p>
+               <p><span class="form_label">Paypal:</span><br> <%= form.text_field :paypal,placeholder: "Paypal Address*", class: 'register_form_field' %></p>
 
                <button id=from_basic_information_to_location_information>Next</button> 
 
             </div>
             <div class="form_panel" id="location_information" style="display: none">
                <h2 class="display-3" style="font-size: 2rem;">Please provide details about where you stay</h2>
-               <br>
-               <p>Country:<br> <%= form.text_field :country , class: 'register_form_field'%></p>
-               <p>City:<br> <%= form.text_field :city, class: 'register_form_field' %></p>
-               <p>Postcode:<br> <%= form.text_field :postcode, class: 'register_form_field' %></p>
+               <hr>
+               <p><span class="form_label">Country:</span><br> <%= form.text_field :country ,placeholder: "Country*", class: 'register_form_field'%></p>
+               <p><span class="form_label">City:</span><br> <%= form.text_field :city,placeholder: "City*", class: 'register_form_field' %></p>
+               <p><span class="form_label">Postcode:</span><br> <%= form.text_field :postcode,placeholder: "Postcode*", class: 'register_form_field' %></p>
 
                <button id="from_location_to_basic_information"%>Previous</button> 
                <button id="from_location_to_connection_information"%>Next</button>
@@ -99,23 +90,25 @@
 
             <div class="form_panel" id="connection_information" style="display: none">
                <h2 class="display-3" style="font-size: 2rem;">Please provide details about your connection</h2>
-               <br>
-               <p>Paypal:<br> <%= form.text_field :paypal, class: 'register_form_field' %></p>
-               <p>Internet Service Provide:<br> <%= form.text_field :isp , class: 'register_form_field'%></p>
-               <p>Bandwidth:<br> <%= form.text_field :bandwidth, class: 'register_form_field' %></p>
-               <p>ISP Bill:<br> <%= form.file_field :isp_bill %></p>
-               <p>Verification Photo:<br> <%= form.file_field :verification_photo %></p>
-              <%= form.hidden_field :form_status, :value => "pending"%>
+               <hr>
+               <p><span class="form_label">Internet Service Provide:</span><br> <%= form.text_field :isp,placeholder: "ISP Name*", class: 'register_form_field'%></p>
+               <p><span class="form_label">Bandwidth:</span><br> <%= form.text_field :bandwidth,placeholder: "Bandwidth*", class: 'register_form_field' %></p>
 
 
+
+               <p>
+                  <span class="form_label">ISP Bill:</span><br> <%= form.file_field :isp_bill %>
+                  <span class="form_label">Verification Photo:</span><br> <%= form.file_field :verification_photo %>
+               </p>
+
+               <%= form.hidden_field :form_status, :value => "pending"%>
                <button id="from_connection_to_location_information"%>Previous</button> 
                <button id=from_connection_to_finish_area>Next</button>
-               
-
             </div>
 
             <div class="form_panel"  id="finish_area" style="display: none; text-align: center;">
                <h3 class="display-3" style="font-size: 3rem;">Terms and Conditions</h3>
+                  <hr>
                <div style="text-align: center; width: 80%; margin: 0 auto; overflow: auto; max-height: 25rem; margin-top: 1rem; margin-bottom: 1rem;" id="TOC_container">
              
                   <p style="">CONDITIONS OF USE<br>Welcome to our online store! My Private Network and its associates provide their services to you subject to the following conditions. If you visit or shop within this website, you accept these conditions. Please read them carefully. ​
