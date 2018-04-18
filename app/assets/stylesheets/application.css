@@ -13,3 +13,55 @@
  *= require_tree .
  *= require_self
  */
+
+/*.modal-lg {
+    max-width: 30% !important;
+}*/
+
+button:focus {outline:0 !important;}
+
+.form_input_container{
+   text-align: center;
+}
+
+
+.home_page_text_field{
+ padding-top: 5px !important;
+   padding-bottom: 5px !important;
+   border-radius:0px !important;
+   margin-bottom: 0.8rem !important;
+   width: 90% !important;
+   border-color: #7f8c8d  !important;
+   border-width: 1px !important;
+   border-style: solid !important;
+}
+
+input[type='password']{
+   padding-top: 5px !important;
+   padding-bottom: 5px !important;
+   border-radius:0px !important;
+   margin-bottom: 0.8rem !important;
+   width: 90% !important;
+   border-color: #7f8c8d  !important;
+   border-width: 1px !important;
+   border-style: solid !important;
+
+}
+
+
+
+
+.label{
+   width: 90%;
+   margin: 0 auto;
+   font-size: 0.9rem;
+}
+
+.sign_in{
+   margin: 0 auto;
+   width: 90% !important;
+}
+
+.nice{
+   max-width: 100% !important;
+}

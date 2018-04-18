@@ -15,7 +15,10 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Private π</a>
+   
+
+      <%= link_to "Private Pi", root_url, method: :get, class: "navbar-brand" %>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -66,12 +69,19 @@
       </div>
     </nav>
 
+
+    <%if flash[:notice]%>
+      <div style="width: 100%; text-align: center; background-color: #9b59b6; color: white; padding-top: 1rem; padding-bottom: 1rem;">
+        <%= flash[:notice] %>
+      </div>
+    <%end%>
+
     <%= yield %>
 
   
 <!-- Sign Up Modal -->
   <div class="modal fade" id="sign_up_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" >
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLongTitle">Sign Up</h5>
@@ -84,15 +94,15 @@
           <legend>Basic details</legend>
           <div class="field">
             <%= f.label :email %><br />
-            <%= f.text_field :email %>
+            <%= f.text_field :email, class: 'home_page_text_field' %>
           </div>
           <div class="field">
             <%= f.label :password %><br />
-            <%= f.password_field :password %>
+            <%= f.password_field :password, class: 'home_page_text_field' %>
           </div>
           <div class="field">
             <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation %>
+            <%= f.password_field :password_confirmation, class: 'home_page_text_field' %>
           </div>
           <div class="centered_text submit-field">
             <%= f.submit  class: " btn btn-outline-success"%>
@@ -111,39 +121,50 @@
 
 <!-- Sign In Modal -->
   <div class="modal fade" id="sign_in_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width: 425px;">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Sign In</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <h5 class="modal-title" id="exampleModalLongTitle" style="margin:0 auto">Sign In</h5>
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-left: 0"> -->
+            <!-- <span aria-hidden="true">&times;</span> -->
           </button>
         </div>
         <div class="modal-body">
-        <%= form_tag sessions_path do %>
-  <div class="field">
-    <%= label_tag :email %><br />
-    <%= text_field_tag :email, params[:email] %>
-  </div>
-  <div class="field">
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password %>
-  </div>
-  <div class="actions"><%= submit_tag "Log In" %></div>
-<% end %>
 
-        </div>
+          <%= form_tag sessions_path do %>
+            <div class="label">Email</div>
+            <div class="form_input_container" >
+              <%= text_field_tag :email, params[:email], class: 'home_page_text_field' %>
+            </div>
+            <div class="label">Password</div>
+            <div class="form_input_container">
+              <%= password_field_tag :password , class: 'home_page_text_field'%>
+            </div>
+            <!-- <div class="actions"></div> -->
+          
+            </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          <%= submit_tag "Log In", :class => "btn btn-primary sign_in"%>
+          <% end %>
         </div>
+          <div style="text-align: center; display: block; margin-bottom: 1rem;">
+            Forgot Password?
+          </div>
+
       </div>
     </div>
   </div>
+
      
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+
+
 
   </body>
 </html>

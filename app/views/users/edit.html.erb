@@ -1,0 +1,163 @@
+
+   
+<div class="col-12">
+   <div class="row" style="margin-bottom: -0.5rem; margin-top: 0.5rem;">
+      <div class="col-4" style="text-align: center;">
+         <div style="width: 80%;margin:0 auto;">
+            <h3 class="display-3" style="font-size: 2rem; text-align: left;">Registration</h3>
+         </div>
+      </div>
+      <div class="col-8">
+      </div>
+   </div>
+</div>
+
+
+<div class="col-12">
+   <div class="row">
+      <div class="col-4" style="margin-right: -1rem;">
+
+         <div style=" display: block;text-align: center; margin-top:1.5rem; width: 100%;">
+        
+            <button class="form_navigation_button" id=basic_information_button>
+               <div class="row">
+                  <div class="col-1">
+                     <h3  class="display-3" style="font-size:2rem">1</h3>
+                  </div>
+
+                     <div class="col-11">
+                        <div class="row">
+                           <div class="display-3 form_navigation_button_text">
+                              Account
+                           </div>
+                           <div style="font-size: 1rem">
+                              Basic Information 
+                           </div>
+                        </div>
+                     </div>
+               </div>
+
+               <div class="chevron_container" id="basic_chevron_information_container" >
+                  <i class="fas fa-chevron-right"></i>
+               </div>
+            </button>
+            <button class="form_navigation_button" id="location_information_button">
+               <div class="display-3 form_navigation_button_text">
+                  Location Information
+               </div>
+               <div class="chevron_container" id="location_chevron_information_container" style="display: none;"  >
+                  <i class="fas fa-chevron-right"></i>
+               </div>
+            </button>
+            <button class="form_navigation_button" id="connection_information_button">
+               <div class="display-3 form_navigation_button_text">
+                  Technical Details
+               </div>
+               <div class="chevron_container" id="connection_chevron_information_container" style="display: none;" >
+                  <i class="fas fa-chevron-right"></i>
+               </div>
+            </button>
+            <button class="form_navigation_button" id="complete_area_button">
+               <div class="display-3 form_navigation_button_text">
+                  Complete
+               </div>
+               <div class="chevron_container" id="finish_chevron_information_container" style="display: none;" >
+                  <i class="fas fa-chevron-right"></i>
+               </div>
+            </button>
+         </div>
+
+      </div>
+
+
+
+
+
+      <div class="col-8" style="margin-left: -1rem;">
+         <br>
+         <%= form_for @user do |form| %>
+            <div class="form_panel" id="basic_information" style="display: block;">
+               <h2 class="display-3" style="font-size: 2rem;">Please provide your basic information</h2>
+               <hr>
+               <p class="big_form">First name: <br><%= form.text_field :first_name, placeholder: "First name", class: 'register_form_field' %></p>
+               <p>Last name:<br> <%= form.text_field :last_name, placeholder: "Last name", class: 'register_form_field'%></p>
+
+               <button id=from_basic_information_to_location_information>Next</button> 
+
+            </div>
+            <div class="form_panel" id="location_information" style="display: none">
+               <h2 class="display-3" style="font-size: 2rem;">Please provide details about where you stay</h2>
+               <br>
+               <p>Country:<br> <%= form.text_field :country , class: 'register_form_field'%></p>
+               <p>City:<br> <%= form.text_field :city, class: 'register_form_field' %></p>
+               <p>Postcode:<br> <%= form.text_field :postcode, class: 'register_form_field' %></p>
+
+               <button id="from_location_to_basic_information"%>Previous</button> 
+               <button id="from_location_to_connection_information"%>Next</button>
+               
+            </div>
+
+            <div class="form_panel" id="connection_information" style="display: none">
+               <h2 class="display-3" style="font-size: 2rem;">Please provide details about your connection</h2>
+               <br>
+               <p>Paypal:<br> <%= form.text_field :paypal, class: 'register_form_field' %></p>
+               <p>Internet Service Provide:<br> <%= form.text_field :isp , class: 'register_form_field'%></p>
+               <p>Bandwidth:<br> <%= form.text_field :bandwidth, class: 'register_form_field' %></p>
+               <p>ISP Bill:<br> <%= form.file_field :isp_bill %></p>
+               <p>Verification Photo:<br> <%= form.file_field :verification_photo %></p>
+              <%= form.hidden_field :form_status, :value => "pending"%>
+
+
+               <button id="from_connection_to_location_information"%>Previous</button> 
+               <button id=from_connection_to_finish_area>Next</button>
+               
+
+            </div>
+
+            <div class="form_panel"  id="finish_area" style="display: none; text-align: center;">
+               <h3 class="display-3" style="font-size: 3rem;">Terms and Conditions</h3>
+               <div style="text-align: center; width: 80%; margin: 0 auto; overflow: auto; max-height: 25rem; margin-top: 1rem; margin-bottom: 1rem;" id="TOC_container">
+             
+                  <p style="">CONDITIONS OF USE<br>Welcome to our online store! My Private Network and its associates provide their services to you subject to the following conditions. If you visit or shop within this website, you accept these conditions. Please read them carefully. ​
+
+<br>
+<br>
+PRIVACY
+<br>
+Please review our Privacy Notice, which also governs your visit to our website, to understand our practices.
+<br>
+<br>
+ELECTRONIC COMMUNICATIONS
+<br>
+When you visit My Private Network or send e-mails to us, you are communicating with us electronically. You consent to receive communications from us electronically. We will communicate with you by e-mail or by posting notices on this site. You agree that all agreements, notices, disclosures and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.
+<br><br>
+COPYRIGHT
+<br>
+All content included on this site, such as text, graphics, logos, button icons, images, audio clips, digital downloads, data compilations, and software, is the property of My Private Network or its content suppliers and protected by international copyright laws. The compilation of all content on this site is the exclusive property of My Private Network, with copyright authorship for this collection by My Private Network, and protected by international copyright laws.
+<br>
+<br>
+TRADE MARKS
+<br>
+My Private Networks trademarks and trade dress may not be used in connection with any product or service that is not My Private Networks, in any manner that is likely to cause confusion among customers, or in any manner that disparages or discredits My Private Network. All other trademarks not owned by My Private Network or its subsidiaries that appear on this site are the property of their respective owners, who may or may not be affiliated with, connected to, or sponsored by My Private Network or its subsidiaries.
+<br>
+<br>
+LICENSE AND SITE ACCESS
+<br>
+My Private Network grants you a limited license to access and make personal use of this site and not to download (other than page caching) or modify it, or any portion of it, except with express written consent of My Private Network. This license does not include any resale or commercial use of this site or its contents: any collection and use of any product listings, descriptions, or prices: any derivative use of this site or its contents: any downloading or copying of account information for the benefit of another merchant: or any use of data mining, robots, or similar data gathering and extraction tools. This site or any portion of this site may not be reproduced, duplicated, copied, sold, resold, visited, or otherwise exploited for any commercial purpose without express written consent of My Private Network. You may not frame or utilize framing techniques to enclose any trademark, logo, or other proprietary information (including images, text, page layout, or form) of My Private Network and our associates without express written consent. You may not use any meta tags or any other "hidden text" utilizing My Private Networks name or trademarks without the express written consent of My Private Network. Any unauthorized use terminates the permission or license granted by My Private Network. You are granted a limited, revocable, and nonexclusive right to create a hyperlink to the home page of My Private Network so long as the link does not portray My Private Network, its associates, or their products or services in a false, misleading, derogatory, or otherwise offensive matter. You may not use any My Private Network logo or other proprietary graphic or trademark as part of the link without express written permission.
+<br>
+<br>
+YOUR MEMBERSHIP ACCOUNT
+<br>
+If you use this site, you are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer, and you agree to accept responsibility for all activities that occur under your account or password. If you are under 18, you may use our website only with involvement of a parent or guardian. My Private Network and its associates reserve the right to refuse service, terminate accounts, remove or edit content, or cancel orders in their sole discretion.</p>
+               </div>
+               <%= form.submit "Update Your Profile", data: {confirm: "Are you sure all your imformation is correct?"}, class: "btn btn-outline-dark" %>
+
+               <button id="from_finish_to_connection_information"%>Previous</button> 
+            </div>
+         <% end %>
+      </div>
+   </div>
+</div>
+
+
+

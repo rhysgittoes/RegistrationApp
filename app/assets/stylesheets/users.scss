@@ -1,3 +1,55 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#map{
+   height: 400px;
+   width: 100%;
+
+}
+.form_navigation_button{
+   background-color: #2ecc71;
+   text-align: left;
+   color: white;
+   width: 80%;
+   padding-top: 1rem;
+   padding-bottom: 1rem;
+   margin-bottom: 0.5rem;
+    // -webkit-box-shadow: 0 10px 6px -6px #777;
+    //  -moz-box-shadow: 0 10px 6px -6px #777;
+    //       box-shadow: 0 10px 6px -6px #777;
+   transition-duration: 0.5s;
+   padding-left: 1rem;
+   position: relative;
+
+}
+.form_navigation_button:hover{
+   background-color: #9b59b6;
+}
+
+.form_navigation_button_text{
+   display: inline; 
+   margin-bottom: 0.5rem; 
+   font-size: 2rem;
+}
+.chevron_container{
+   position: absolute;display:inline; top:-0.2rem; left: 19.8rem; font-size: 3.2rem; color: white;
+}
+
+
+.form_panel{
+   border-color: black;
+   border-width: 1px;
+   border-style: solid;
+   padding-left: 1rem;
+   padding-right: 1rem;
+   padding-top: 1rem;
+   padding-bottom: 1rem;
+}
+
+
+.register_form_field{
+   width: 100% !important;
+   border-radius: 5px !important;
+   padding-left: 0.5rem !important;
+}
