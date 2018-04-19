@@ -16,11 +16,14 @@ class UsersController < ApplicationController
 
 
   def show   
-   if auth || admin
-    @user = User.find_by_id(params[:id])
-   else
-    redirect_to root_url, notice: 'You don\'t have access to view that page'
+    if auth || admin
+      @user = User.find_by_id(params[:id])
+      @order = Order.new
+    else
+      redirect_to root_url, notice: 'You don\'t have access to view that page'
     end
+
+
 
     if admin
         @users = User.all

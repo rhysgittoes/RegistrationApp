@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  get 'orders/index'
+  # get 'orders/index'
 
-  get 'orders/new'
+  # get 'orders/new'
 
-  get 'sessions/new'
+  # get 'sessions/new'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root to: 'pages#index'
-
+      root to: 'pages#index'
+      resources :orders
       resources :users
       resources :sessions
 

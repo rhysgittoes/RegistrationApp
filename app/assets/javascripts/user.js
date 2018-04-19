@@ -174,6 +174,22 @@ document.addEventListener('turbolinks:load', function(){
     });
  
 
+ //place an order button
+
+    $("#place_an_order_btn").click(function(event){
+      event.preventDefault()
+    $("#row_show_container").fadeToggle("linear");
+    $("#order_container").fadeToggle("linear");s
+    });
+
+    $("#back_to_home_page").click(function(event){
+      event.preventDefault()
+
+    $("#order_container").fadeToggle("linear");
+    $("#row_show_container").fadeToggle("linear");
+   
+    });
+
 
 });
 

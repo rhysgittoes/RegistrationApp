@@ -95,154 +95,217 @@
 <!-- Normal User Show -->
   <br>
   <div class="container">
-     <div class="row">
-        <div class="col-12">
-           <h2>Your Dashboard</h3>
-        </div> 
-     </div>
-     <br>
-     <div class="row">
-        <div class="col-8">
-              <h3>Status</h3>
+       <div class="row">
+          <div class="col-12">
+             <h2>Your Dashboard</h3>
+          </div> 
+       </div>
+       <br>
 
-              <table class="table ">
-                <thead>
-                  <tr>
-                    <th scope="col">Current IP</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">City</th>
-                    <th scope="col">Timezone</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><%= request.env['REMOTE_ADDR']%></td>
-                    <td><%country = GeoIP.new('GeoIP.dat').country("210.195.39.201") %><%= country.country_name%></td>
-                    <td><%city = GeoIP.new('GeoLiteCity.dat').city("210.195.39.201")%><%= city.city_name%></td>
-                    <td><%=city.timezone%></td>
-                  </tr>   
-                </tbody>
-              </table>
-        
-        <h2>Orders</h3>
-
-
-               
-        </div>
-
-
-        <div class="col-4">
-              <div>
-                 <h3>Registration Status</h3>
-                <%if @user.form_status == nil%>
-                  <div style=" border-style: solid; border-color: #fc5c65; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-top: 0.4rem; padding-bottom: 0.4rem; border-radius: 5px; color: #fc5c65;">
-                    Registration not completed
-                  </div>
-                  <%=button_to "Complete Registration", edit_user_url, method: :get, class: "btn btn-outline-dark black_btn"%>
-                <%else%>
-                <%end%>
-
-                <%if @user.form_status == "pending"%>
-                  <div style="border-style: solid; border-color: #fed330;  border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem;  padding-top: 0.4rem;padding-bottom: 0.4rem; border-radius: 5px; color: #fed330">
-                    Registration Pending
-                  </div>
-                  <table class="table ">
-                    <thead>
-                      <tr>
-                        <th scope="col">Field</th>
-                        <th scope="col">Details</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Name</td>
-                        <td><%=@user.first_name%> <%=@user.last_name%></td>
-                      </tr>  
-                       <tr>
-                        <td>Paypal</td>
-                        <td><%=@user.paypal%></td>
-                      </tr> 
-                      <tr>
-                        <td>Country</td>
-                        <td><%=@user.country%></td>
-                      </tr>  
-                      <tr>
-                        <td>City</td>
-                        <td><%=@user.city%></td>
-                      </tr> 
-                      <tr>
-                        <td>Postcode</td>
-                        <td><%=@user.postcode%></td>
-                      </tr> 
-                      <tr> 
-                        <td>ISP</td>
-                        <td><%=@user.isp%></td>
-                      </tr> 
-                      <tr> 
-                        <td>Bandwidth</td>
-                        <td><%=@user.bandwidth%></td>
-                      </tr>   
-                    </tbody>
+       <div class="row"  id="row_show_container">
+          <div class="col-8">
+                <h3>Status</h3>
+                <table class="table ">
+                  <thead>
+                    <tr>
+                      <th scope="col">Current IP</th>
+                      <th scope="col">Country</th>
+                      <th scope="col">City</th>
+                      <th scowpe="col">Timezone</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><%= request.env['REMOTE_ADDR']%></td>
+                      <td><%country = GeoIP.new('GeoIP.dat').country("210.195.39.201") %><%= country.country_name%></td>
+                      <td><%city = GeoIP.new('GeoLiteCity.dat').city("210.195.39.201")%><%= city.city_name%></td>
+                      <td><%=city.timezone%></td>
+                    </tr>   
+                  </tbody>
                 </table>
-                <%else%>
-                <%end%>
+                <h3>Orders</h3>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Order Status</th>
+                      <th scope="col">Tracking ID</th>
+                      <th scope="col">Device ID</th>
+                      <th scope="col">Device Status</th>
 
-                <%if @user.form_status == "approved"%>
-                  <div style="border-style: solid; border-color: #26de81; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem;  padding-top: 0.4rem; padding-bottom: 0.4rem; border-radius: 5px; color: #26de81;">
-                    Registration Approved
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%if @user.orders.present?%>
+                      <% @user.orders.each do|o|%>
+                        <tr>
+                          <td><%= o.id%></td>
+                          <td><%= o.city%>, <%= o.street_name%>, <%= o.number%></td>
+                          <td><%= o.order_status%></td>
+                          <td><%= o.tracking_id%></td>
+                          <td><%= o.device_id%></td>
+                          <td><%= o.status%></td>
+                        </tr>
+                      <%end%>
+                    <%else%>
+                    <h3>No orders found</h3>
+                    <%end%>
+                  </tbody>
+                </table>
+
+          </div>
+
+
+            <div class="col-4">
+                  <div>
+                    <h3>Registration Status</h3>
+                    <%if @user.form_status == nil%>
+                      <div style=" border-style: solid; border-color: #fc5c65; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-top: 0.4rem; padding-bottom: 0.4rem; border-radius: 5px; color: #fc5c65;">
+                        Registration not completed
+                      </div>
+                      <%=button_to "Complete Registration", edit_user_url, method: :get, class: "btn btn-outline-dark black_btn"%>
+                    <%else%>
+                    <%end%>
+
+                    <%if @user.form_status == "pending"%>
+                      <div style="border-style: solid; border-color: #fed330;  border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem;  padding-top: 0.4rem;padding-bottom: 0.4rem; border-radius: 5px; color: #fed330">
+                        Registration Pending
+                      </div>
+                      <table class="table ">
+                        <thead>
+                          <tr>
+                            <th scope="col">Field</th>
+                            <th scope="col">Details</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Name</td>
+                            <td><%=@user.first_name%> <%=@user.last_name%></td>
+                          </tr>  
+                           <tr>
+                            <td>Paypal</td>
+                            <td><%=@user.paypal%></td>
+                          </tr> 
+                          <tr>
+                            <td>Country</td>
+                            <td><%=@user.country%></td>
+                          </tr>  
+                          <tr>
+                            <td>City</td>
+                            <td><%=@user.city%></td>
+                          </tr> 
+                          <tr>
+                            <td>Postcode</td>
+                            <td><%=@user.postcode%></td>
+                          </tr> 
+                          <tr> 
+                            <td>ISP</td>
+                            <td><%=@user.isp%></td>
+                          </tr> 
+                          <tr> 
+                            <td>Bandwidth</td>
+                            <td><%=@user.bandwidth%></td>
+                          </tr>   
+                        </tbody>
+                    </table>
+                    <%else%>
+                    <%end%>
+
+                    <%if @user.form_status == "approved"%>
+                      <div style="border-style: solid; border-color: #26de81; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 0.8rem;  padding-top: 0.4rem; padding-bottom: 0.4rem; border-radius: 5px; color: #26de81;">
+                        Registration Approved
+                      </div>
+                      <%#=button_to "Place an order", orders_path, method: :get, class: "btn btn-outline-dark black_btn"%>
+                      <button id="place_an_order_btn" class="btn btn-outline-dark black_btn">Place an order</button>
+                      <table class="table" style="margin-top: 0.8rem;">
+                        <thead>
+                          <tr>
+                            <th scope="col">Field</th>
+                            <th scope="col">Details</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Name</td>
+                            <td><%=@user.first_name%> <%=@user.last_name%></td>
+                          </tr>  
+                           <tr>
+                            <td>Paypal</td>
+                            <td><%=@user.paypal%></td>
+                          </tr> 
+                          <tr>
+                            <td>Country</td>
+                            <td><%=@user.country%></td>
+                          </tr>  
+                          <tr>
+                            <td>City</td>
+                            <td><%=@user.city%></td>
+                          </tr> 
+                          <tr>
+                            <td>Postcode</td>
+                            <td><%=@user.postcode%></td>
+                          </tr> 
+                          <tr> 
+                            <td>ISP</td>
+                            <td><%=@user.isp%></td>
+                          </tr> 
+                          <tr> 
+                            <td>Bandwidth</td>
+                            <td><%=@user.bandwidth%></td>
+                          </tr>   
+                        </tbody>
+                      </table>
+                    <%else%>
+                    <%end%>
                   </div>
-                  <table class="table ">
-                    <thead>
-                      <tr>
-                        <th scope="col">Field</th>
-                        <th scope="col">Details</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Name</td>
-                        <td><%=@user.first_name%> <%=@user.last_name%></td>
-                      </tr>  
-                       <tr>
-                        <td>Paypal</td>
-                        <td><%=@user.paypal%></td>
-                      </tr> 
-                      <tr>
-                        <td>Country</td>
-                        <td><%=@user.country%></td>
-                      </tr>  
-                      <tr>
-                        <td>City</td>
-                        <td><%=@user.city%></td>
-                      </tr> 
-                      <tr>
-                        <td>Postcode</td>
-                        <td><%=@user.postcode%></td>
-                      </tr> 
-                      <tr> 
-                        <td>ISP</td>
-                        <td><%=@user.isp%></td>
-                      </tr> 
-                      <tr> 
-                        <td>Bandwidth</td>
-                        <td><%=@user.bandwidth%></td>
-                      </tr>   
-                    </tbody>
-                  </table>
-                <%else%>
-                <%end%>
-              </div>
 
-              <div style="margin-top: 2rem;">
-                <h3>Location Status</h3>
-                <div id="map" style="margin-top: 1rem;">   
+                  <div style="margin-top: 2rem;">
+                    <h3>Location Status</h3>
+                    <div id="map" style="margin-top: 1rem;">   
+                    </div>
+                  </div>
+            </div>
+
+       </div>
+
+            <div id="order_container" style="display: none; text-align: center"> 
+                <h3 style="font-size: 2.5rem;" class="display-3">New Order</h3>
+                  <%= form_for @order do |form| %>
+                    <div class="row" style="margin-top: 2rem; margin-bottom: 2rem;">
+                      <div class="col-4"><%= form.text_field :country,placeholder: "Country*", class: 'register_form_field order'%></div>
+                      <div class="col-4"><%= form.text_field :city,placeholder: "City*", class: 'register_form_field order'%></div>
+                      <div class="col-4"><%= form.text_field :postcode,placeholder: "Postcode*", class: 'register_form_field order'%></div>
+                    </div>
+                    <div class="row" style="margin-top: 2rem; margin-bottom: 2rem;">
+                      <div class="col-3"><%= form.text_field :street_name,placeholder: "Street name*", class: 'register_form_field order'%></div>
+                      <div class="col-3"><%= form.text_field :address_type,placeholder: "Address type*", class: 'register_form_field order'%></div>
+                      <div class="col-3"><%= form.text_field :building_name,placeholder: "Building Name*", class: 'register_form_field order'%></div>
+                      <div class="col-3"><%= form.text_field :number, placeholder: "Number*", class: 'register_form_field order'%></div>
+                    </div>
+                    <div class="row" style="margin: 2rem auto; width: 100%;>
+                      <div class="col-12"><%= form.text_field :remarks,placeholder: "Remarks*", class: 'register_form_field order', id: 'height'%></div>`
+
+                      <%= form.hidden_field :tracking_id, :value => "waiting"%>
+                      <%= form.hidden_field :order_status, :value => "pending"%>
+                      <%= form.hidden_field :status, :value => "offline"%>
+                      <%= form.hidden_field :device_id, :value => "pending"%>
+
+
+                  <div style="width: 80%; margin: -1.5rem auto;">
+                     <button id="back_to_home_page" class="btn btn-outline-dark btn_med">Back</button>
+                     <div class="col-1" style="display: inline;"></div>
+                    <%= form.submit "Create an order", data: {confirm: "Are you sure all your imformation is correct?"}, class: "btn btn-outline-dark btn_med" %>
                 </div>
-              </div>
-
-
-        </div>
-     </div>
+                <%end%>
+            </div>
+        
+      </div>
   </div>
+
+
+
 
     <script>
           function initMap() {
