@@ -9,69 +9,75 @@
     </div>
 
     <h3 style="margin-top: 1rem;">Pending Registrations</h3>
-    <table class="table ">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Location</th>
-          <th scope="col">ISP</th>
-          <th scope="col">Bandwidth</th>
-          <th scope="col">Email</th>
-          <th scope="col">Paypal</th>
-          <th scope="col">ISP Verification</th>
-          <th scope="col">User Verification</th>
-          <th scope="col">Status</th>
-          <th scope="col">Approve</th>
-        </tr>
-      </thead>
-  
-      <tbody>
+    <%if @users.where(form_status: "pending").present?%>
+      <table class="table ">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Location</th>
+            <th scope="col">ISP</th>
+            <th scope="col">Bandwidth</th>
+            <th scope="col">Email</th>
+            <th scope="col">Paypal</th>
+            <th scope="col">ISP Verification</th>
+            <th scope="col">User Verification</th>
+            <th scope="col">Status</th>
+            <th scope="col">Approve</th>
+          </tr>
+        </thead>
+    
+        <tbody>
 
-          <%@users.order(updated_at: :ASC).where(form_status: "pending").each do |u|%>
-            <tr>
-              <!-- <th scope="row">1</th> -->
-              <td><%=u.id%></td>
-              <td><%=u.first_name%> <%=u.last_name%></td>
-              <td><%=u.country%>, <%=u.city%>, <%=u.postcode%></td>
-              <td><%=u.isp%></td>
-              <td><%=u.bandwidth%></td>
-              <td><%=u.email%></td>
-              <td><%=u.paypal%></td>
-              <td><button class="modal_button" id=<%=u.id.to_s%>>Open</button></td>
-              <td><button class="modal_button_verf" id=<%=u.id.to_s%>>Open</button></td>
-              <td><%=u.form_status%></td>
-              <td>
-                <%= form_for u do |form| %>
-                  <%= form.hidden_field :form_status, :value => "approved"%>
-                  <%= form.hidden_field :approved, :value => true%>
-                  <%= form.submit 'Approve' %>
-              </td> 
-            </tr>
+            <%@users.order(updated_at: :ASC).where(form_status: "pending").each do |u|%>
+              <tr>
+                <!-- <th scope="row">1</th> -->
+                <td><%=u.id%></td>
+                <td><%=u.first_name%> <%=u.last_name%></td>
+                <td><%=u.country%>, <%=u.city%>, <%=u.postcode%></td>
+                <td><%=u.isp%></td>
+                <td><%=u.bandwidth%></td>
+                <td><%=u.email%></td>
+                <td><%=u.paypal%></td>
+                <td><button class="modal_button" id=<%=u.id.to_s%>>Open</button></td>
+                <td><button class="modal_button_verf" id=<%=u.id.to_s%>>Open</button></td>
+                <td><%=u.form_status%></td>
+                <td>
+                  <%= form_for u do |form| %>
+                    <%= form.hidden_field :form_status, :value => "approved"%>
+                    <%= form.hidden_field :approved, :value => true%>
+                    <%= form.submit 'Approve' %>
+                </td> 
+              </tr>
+            <%end%>
+        
+
+
+            <div class="modal fade" id="modal_id_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered nice" role="document">
+                <div style="margin: 0 auto;">
+                  <img id="modal_image" src="<%= @users.find(id=u.id).isp_bill%>">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="modal fade" id="modal_id_verf_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered nice" role="document">
+                <div style="margin: 0 auto;">
+                  <img id="modal_image" src="<%= @users.find(id=u.id).verification_photo%>">
+                </div>
+              </div>
+            </div>
+
           <%end%>
-      
-
-
-          <div class="modal fade" id="modal_id_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered nice" role="document">
-              <div style="margin: 0 auto;">
-                <img id="modal_image" src="<%= @users.find(id=u.id).isp_bill%>">
-              </div>
-            </div>
-          </div>
-
-
-          <div class="modal fade" id="modal_id_verf_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered nice" role="document">
-              <div style="margin: 0 auto;">
-                <img id="modal_image" src="<%= @users.find(id=u.id).verification_photo%>">
-              </div>
-            </div>
-          </div>
-
-        <%end%>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    <%else%>
+    <div style="text-align: center;">
+      <h3>Yay! No pending registrations</h3>
+    </div>
+    <%end%>
 
     <h3 style="margin-top: 1rem;">Orders</h3>
     <%if @orders.present?%>
@@ -165,6 +171,7 @@
                   </tbody>
                 </table>
                 <h3>Orders</h3>
+                <%if @user.orders.present?%>
                 <table class="table">
                   <thead>
                     <tr>
@@ -178,7 +185,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <%if @user.orders.present?%>
+                    
                       <% @user.orders.each do|o|%>
                         <tr>
                           <td><%= o.id%></td>
@@ -190,7 +197,20 @@
                         </tr>
                       <%end%>
                     <%else%>
-                    <h3>No orders found</h3>
+                      <%if @user.form_status == nil%>
+                        <div style="text-align: center">
+                          <h3>No orders found <br> Complete your Registration to place an order</h3>
+                        </div>
+                      <%elsif @user.form_status == "pending"%>
+                       <div style="text-align: center">
+                        <br>
+                          <h3>Please wait for an admin to review your registration</h3>
+                        </div>
+                      <%else%>
+                      <div style="text-align: center">
+                          <h3>No orders found</h3>
+                        </div>
+                      <%end%>
                     <%end%>
                   </tbody>
                 </table>
@@ -267,7 +287,7 @@
                             <th scope="col">Details</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="display: none">
                           <tr>
                             <td>Name</td>
                             <td><%=@user.first_name%> <%=@user.last_name%></td>
