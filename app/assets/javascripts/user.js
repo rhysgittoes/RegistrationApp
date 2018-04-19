@@ -190,6 +190,20 @@ document.addEventListener('turbolinks:load', function(){
    
     });
 
+//show details and stuff
+    $("#show_details").click(function(event){
+    event.preventDefault()
+    $("#details_hidden_thing").fadeToggle("linear");
+
+    if ($("#show_details").html() ==  'Show Details'){
+      $("#show_details").html('Hide Details');
+    }
+
+    else($("#show_details").html('Show Details'))
+    
+
+    })
+
 
 });
 

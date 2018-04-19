@@ -279,15 +279,16 @@
                         Registration Approved
                       </div>
                       <%#=button_to "Place an order", orders_path, method: :get, class: "btn btn-outline-dark black_btn"%>
-                      <button id="place_an_order_btn" class="btn btn-outline-dark black_btn">Place an order</button>
-                      <table class="table" style="margin-top: 0.8rem;">
+                      <button id="place_an_order_btn" class="btn btn-outline-dark black_btn" style="margin-bottom: 0.8rem;">Place an order</button>
+
+                      <table class="table"  id="details_hidden_thing" style="margin-top: 0.8rem; display: none;">
                         <thead>
                           <tr>
                             <th scope="col">Field</th>
                             <th scope="col">Details</th>
                           </tr>
                         </thead>
-                        <tbody style="display: none">
+                        <tbody>
                           <tr>
                             <td>Name</td>
                             <td><%=@user.first_name%> <%=@user.last_name%></td>
@@ -317,9 +318,11 @@
                             <td><%=@user.bandwidth%></td>
                           </tr>   
                         </tbody>
+
                       </table>
                     <%else%>
                     <%end%>
+                    <button id="show_details" class="btn btn-outline-dark black_btn">Show Details</button>
                   </div>
 
                   <div style="margin-top: 2rem;">
