@@ -27,6 +27,7 @@ class UsersController < ApplicationController
 
     if admin
         @users = User.all
+        @orders = Order.all
     else
     end
 
