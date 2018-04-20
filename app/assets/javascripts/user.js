@@ -174,6 +174,36 @@ document.addEventListener('turbolinks:load', function(){
     });
  
 
+ //place an order button
+
+    $("#place_an_order_btn").click(function(event){
+      event.preventDefault()
+    $("#row_show_container").fadeToggle("linear");
+    $("#order_container").delay(500).fadeToggle("linear");
+    });
+
+    $("#back_to_home_page").click(function(event){
+      event.preventDefault()
+
+    $("#order_container").fadeToggle("linear");
+    $("#row_show_container").delay(500).fadeToggle("linear");
+   
+    });
+
+//show details and stuff
+    $("#show_details").click(function(event){
+    event.preventDefault()
+    $("#details_hidden_thing").fadeToggle("linear");
+
+    if ($("#show_details").html() ==  'Show Details'){
+      $("#show_details").html('Hide Details');
+    }
+
+    else($("#show_details").html('Show Details'))
+    
+
+    })
+
 
 });
 

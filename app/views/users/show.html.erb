@@ -4,79 +4,145 @@
   <div style="margin-left: 1rem; margin-top: 1rem; margin-right: 1rem;">
     <div class="row">
       <div class="col-12">
-         <h2>Admin Dashboard</h2>
+         <h2 class="display-3">Admin Dashboard</h2>
       </div>  
     </div>
 
-    <table class="table ">
+    <h3 style="margin-top: 1rem;">Pending Registrations</h3>
+    <%if @users.where(form_status: "pending").present?%>
+      <table class="table ">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Location</th>
+            <th scope="col">ISP</th>
+            <th scope="col">Bandwidth</th>
+            <th scope="col">Email</th>
+            <th scope="col">Paypal</th>
+            <th scope="col">ISP Verification</th>
+            <th scope="col">User Verification</th>
+            <th scope="col">Status</th>
+            <th scope="col">Approve</th>
+          </tr>
+        </thead>
+    
+        <tbody>
+
+            <%@users.order(updated_at: :ASC).where(form_status: "pending").each do |u|%>
+              <tr>
+                <!-- <th scope="row">1</th> -->
+                <td><%=u.id%></td>
+                <td><%=u.first_name%> <%=u.last_name%></td>
+                <td><%=u.country%>, <%=u.city%>, <%=u.postcode%></td>
+                <td><%=u.isp%></td>
+                <td><%=u.bandwidth%></td>
+                <td><%=u.email%></td>
+                <td><%=u.paypal%></td>
+                <td><button class="modal_button" id=<%=u.id.to_s%>>Open</button></td>
+                <td><button class="modal_button_verf" id=<%=u.id.to_s%>>Open</button></td>
+                <td><%=u.form_status%></td>
+                <td>
+                  <%= form_for u do |form| %>
+                    <%= form.hidden_field :form_status, :value => "approved"%>
+                    <%= form.hidden_field :approved, :value => true%>
+                    <%= form.submit 'Approve' %>
+                </td> 
+              </tr>
+            <%end%>
+        
+
+
+            <div class="modal fade" id="modal_id_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered nice" role="document">
+                <div style="margin: 0 auto;">
+                  <img id="modal_image" src="<%= @users.find(id=u.id).isp_bill%>">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="modal fade" id="modal_id_verf_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered nice" role="document">
+                <div style="margin: 0 auto;">
+                  <img id="modal_image" src="<%= @users.find(id=u.id).verification_photo%>">
+                </div>
+              </div>
+            </div>
+
+          <%end%>
+        </tbody>
+      </table>
+    <%else%>
+    <div style="text-align: center;">
+      <h3>Yay! No pending registrations</h3>
+    </div>
+    <%end%>
+
+    <h3 style="margin-top: 1rem; display: inline;">Orders</h3> 
+              <%#= form_tag orders_path, method: :get , class: "search" do %>
+                <%#= text_field_tag :search, params[:search], list: "list", placeholder: "Search for Orders", style: "width:50%;"%>
+                <%#=submit_tag "Search", :name => nil %>
+              <%#end%>
+    <%if @orders.present?%>
+    <table class="table">
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Location</th>
-          <th scope="col">ISP</th>
-          <th scope="col">Bandwidth</th>
-          <th scope="col">Email</th>
-          <th scope="col">Paypal</th>
-          <th scope="col">ISP Verification</th>
-          <th scope="col">User Verification</th>
-          <th scope="col">Status</th>
-          <th scope="col">Approve</th>
+          <th scope="col">User name</th>
+          <th scope="col">Order Created</th>
+          <th scope="col">Address</th>
+          <!-- <th scope="col">Remarks<th> -->
+          <th scope="col">Order Status</th>
+          <th scope="col">Tracking ID</th>
+          <th scope="col">Device Status</th>
+          <th scope="col">Mac ID</th>
+          <th scope="col">Device ID</th>
+
+
+
         </tr>
       </thead>
-  
       <tbody>
-
-          <%@users.where(form_status: "pending").each do |u|%>
+        
+          <% @orders.order(created_at: :ASC).each do |o|%>
             <tr>
-              <!-- <th scope="row">1</th> -->
-              <td><%=u.id%></td>
-              <td><%=u.first_name%> <%=u.last_name%></td>
-              <td><%=u.country%>, <%=u.city%>, <%=u.postcode%></td>
-              <td><%=u.isp%></td>
-              <td><%=u.bandwidth%></td>
-              <td><%=u.email%></td>
-              <td><%=u.paypal%></td>
-              <td><button class="modal_button" id=<%=u.id.to_s%>>Open</button></td>
-              <td><button class="modal_button_verf" id=<%=u.id.to_s%>>Open</button></td>
-              <td><%=u.form_status%></td>
+              <td><%= o.id%></td>
+              <td><%= o.user.first_name%> <%= o.user.last_name%> </td>
+              <td><%= o.created_at.strftime("%d %b. %Y")%></td>
+              <td><%= o.city%>, <%= o.street_name%>, <%= o.number%></td>
+              <!-- <td style="max-width: 10rem; max-height: 2rem; overflow: auto">Remarks here</td> -->
               <td>
-                <%= form_for u do |form| %>
-                  <%= form.hidden_field :form_status, :value => "approved"%>
-                  <%= form.hidden_field :approved, :value => true%>
-                  <%= form.submit 'Approve' %>
-              </td> 
+                    <%= o.order_status%> 
+                    <%if o.order_status == "pending" %>
+                      <%= form_for o do |form| %>
+                      <%= form.hidden_field :order_status, :value => "Processing"%>
+                      <!-- <button>Hello</button> -->
+                      
+                      <%= form.submit ('Change to Proccesing?')%>
+                    <%else%>
+                    <%end%>
+                    <%end%>
+                    
+              </td>
+
+<!--  o.order_status.to_s -->
+
+              <td><%= o.tracking_id%></td>
+              <td><%= o.status%></td>
+              <td><%= o.mac_id%></td>
+              <td><%= o.device_id%></td>
+             
             </tr>
           <%end%>
-      
-
-
-          <div class="modal fade" id="modal_id_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered nice" role="document">
-              <div style="margin: 0 auto;">
-                <img id="modal_image" src="<%= @users.find(id=u.id).isp_bill%>">
-              </div>
-            </div>
-          </div>
-
-
-          <div class="modal fade" id="modal_id_verf_<%=u.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered nice" role="document">
-              <div style="margin: 0 auto;">
-                <img id="modal_image" src="<%= @users.find(id=u.id).verification_photo%>">
-              </div>
-            </div>
-          </div>
-
+        <%else%>
+        <h3>No orders found</h3>
         <%end%>
       </tbody>
     </table>
+
+
   </div>
-
-
-
- 
-
 
 
 
@@ -95,94 +161,236 @@
 <!-- Normal User Show -->
   <br>
   <div class="container">
-     <div class="row">
-        <div class="col-12">
-           <h2>Your Dashboard</h3>
-        </div> 
-     </div>
-     <br>
-     <div class="row">
-        <div class="col-8">
-              <h3>Status</h3>
+       <div class="row">
+          <div class="col-12">
+             <h2>Your Dashboard</h3>
+          </div> 
+       </div>
+       <br>
 
-              <table class="table ">
-                <thead>
-                  <tr>
-                    <th scope="col">Current IP</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">City</th>
-                    <th scope="col">Timezone</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><%= request.env['REMOTE_ADDR']%></td>
-                    <td><%country = GeoIP.new('GeoIP.dat').country("210.195.39.201") %><%= country.country_name%></td>
-                    <td><%city = GeoIP.new('GeoLiteCity.dat').city("210.195.39.201")%><%= city.city_name%></td>
-                    <td><%=city.timezone%></td>
-                  </tr>   
-                </tbody>
-              </table>
-        
-        <h2>Orders</h3>
+       <div class="row"  id="row_show_container">
+          <div class="col-8">
+                <h3>Status</h3>
+                <table class="table ">
+                  <thead>
+                    <tr>
+                      <th scope="col">Current IP</th>
+                      <th scope="col">Country</th>
+                      <th scope="col">City</th>
+                      <th scowpe="col">Timezone</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><%= request.env['REMOTE_ADDR']%></td>
+                      <td><%country = GeoIP.new('GeoIP.dat').country("210.195.39.201") %><%= country.country_name%></td>
+                      <td><%city = GeoIP.new('GeoLiteCity.dat').city("210.195.39.201")%><%= city.city_name%></td>
+                      <td><%=city.timezone%></td>
+                    </tr>   
+                  </tbody>
+                </table>
+                <h3>Orders</h3>
+                <%if @user.orders.present?%>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Order Status</th>
+                      <th scope="col">Tracking ID</th>
+                      <th scope="col">Device ID</th>
+                      <th scope="col">Device Status</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                      <% @user.orders.each do|o|%>
+                        <tr>
+                          <td><%= o.id%></td>
+                          <td><%= o.city%>, <%= o.street_name%>, <%= o.number%></td>
+                          <td><%= o.order_status%></td>
+                          <td><%= o.tracking_id%></td>
+                          <td><%= o.device_id%></td>
+                          <td><%= o.status%></td>
+                        </tr>
+                      <%end%>
+                    <%else%>
+                      <%if @user.form_status == nil%>
+                        <div style="text-align: center">
+                          <h3>No orders found <br> Complete your Registration to place an order</h3>
+                        </div>
+                      <%elsif @user.form_status == "pending"%>
+                       <div style="text-align: center">
+                        <br>
+                          <h3>Please wait for an admin to review your registration</h3>
+                        </div>
+                      <%else%>
+                      <div style="text-align: center">
+                          <h3>No orders found</h3>
+                        </div>
+                      <%end%>
+                    <%end%>
+                  </tbody>
+                </table>
+
+          </div>
 
 
-               
-        </div>
+            <div class="col-4">
+                  <div>
+                    <h3>Registration Status</h3>
+                    <%if @user.form_status == nil%>
+                      <div style=" border-style: solid; border-color: #fc5c65; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-top: 0.4rem; padding-bottom: 0.4rem; border-radius: 5px; color: #fc5c65;">
+                        Registration not completed
+                      </div>
+                      <%=button_to "Complete Registration", edit_user_url, method: :get, class: "btn btn-outline-dark black_btn"%>
+                    <%else%>
+                    <%end%>
 
+                    <%if @user.form_status == "pending"%>
+                      <div style="border-style: solid; border-color: #fed330;  border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem;  padding-top: 0.4rem;padding-bottom: 0.4rem; border-radius: 5px; color: #fed330">
+                        Registration Pending
+                      </div>
+                      <table class="table ">
+                        <thead>
+                          <tr>
+                            <th scope="col">Field</th>
+                            <th scope="col">Details</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Name</td>
+                            <td><%=@user.first_name%> <%=@user.last_name%></td>
+                          </tr>  
+                           <tr>
+                            <td>Paypal</td>
+                            <td><%=@user.paypal%></td>
+                          </tr> 
+                          <tr>
+                            <td>Country</td>
+                            <td><%=@user.country%></td>
+                          </tr>  
+                          <tr>
+                            <td>City</td>
+                            <td><%=@user.city%></td>
+                          </tr> 
+                          <tr>
+                            <td>Postcode</td>
+                            <td><%=@user.postcode%></td>
+                          </tr> 
+                          <tr> 
+                            <td>ISP</td>
+                            <td><%=@user.isp%></td>
+                          </tr> 
+                          <tr> 
+                            <td>Bandwidth</td>
+                            <td><%=@user.bandwidth%></td>
+                          </tr>   
+                        </tbody>
+                    </table>
+                    <%else%>
+                    <%end%>
 
-        <div class="col-4">
-              <div>
-                 <h3>Registration Status</h3>
-                <%if @user.form_status == nil%>
-                  <div style=" border-style: solid; border-color: #fc5c65; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-radius: 5px; color: #fc5c65;">
-                    Registration not completed
+                    <%if @user.form_status == "approved"%>
+                      <div style="border-style: solid; border-color: #26de81; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 0.8rem;  padding-top: 0.4rem; padding-bottom: 0.4rem; border-radius: 5px; color: #26de81;">
+                        Registration Approved
+                      </div>
+                      <%#=button_to "Place an order", orders_path, method: :get, class: "btn btn-outline-dark black_btn"%>
+                      <button id="place_an_order_btn" class="btn btn-outline-dark black_btn" style="margin-bottom: 0.8rem;">Place an order</button>
+
+                      <table class="table"  id="details_hidden_thing" style="margin-top: 0.8rem; display: none;">
+                        <thead>
+                          <tr>
+                            <th scope="col">Field</th>
+                            <th scope="col">Details</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Name</td>
+                            <td><%=@user.first_name%> <%=@user.last_name%></td>
+                          </tr>  
+                           <tr>
+                            <td>Paypal</td>
+                            <td><%=@user.paypal%></td>
+                          </tr> 
+                          <tr>
+                            <td>Country</td>
+                            <td><%=@user.country%></td>
+                          </tr>  
+                          <tr>
+                            <td>City</td>
+                            <td><%=@user.city%></td>
+                          </tr> 
+                          <tr>
+                            <td>Postcode</td>
+                            <td><%=@user.postcode%></td>
+                          </tr> 
+                          <tr> 
+                            <td>ISP</td>
+                            <td><%=@user.isp%></td>
+                          </tr> 
+                          <tr> 
+                            <td>Bandwidth</td>
+                            <td><%=@user.bandwidth%></td>
+                          </tr>   
+                        </tbody>
+
+                      </table>
+                    <%else%>
+                    <%end%>
+                    <button id="show_details" class="btn btn-outline-dark black_btn">Show Details</button>
                   </div>
-                  <%=button_to "Complete Registration", edit_user_url, method: :get, class: "btn btn-outline-dark black_btn"%>
-                <%else%>
-                <%end%>
 
-                <%if @user.form_status == "pending"%>
-                  <div style="border-style: solid; border-color: #fed330;  border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-radius: 5px; color: #fed330">
-                    Registration Pending
+                  <div style="margin-top: 2rem;">
+                    <h3>Location Status</h3>
+                    <div id="map" style="margin-top: 1rem;">   
+                    </div>
                   </div>
-                  <p>Name: <%=@user.first_name%>
-                  <%=@user.last_name%></p>
-                  <p>Country: <%=@user.country%></p>
-                  <p>City: <%=@user.city%></p>
-                  <p>Postcode: <%=@user.postcode%></p>
-                  <p>Paypal: <%=@user.paypal%></p>
-                  <p>ISP: <%=@user.isp%></p>
-                  <p>Bandwidth<%=@user.bandwidth%></p>
-                <%else%>
-                <%end%>
+            </div>
 
-                <%if @user.form_status == "approved"%>
-                  <div style="border-style: solid; border-color: #26de81; border-width: 1px; width: 100%; text-align: center; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-radius: 5px; color: #26de81;">
-                    Registration Approved
-                  </div>
-                  <p>Name: <%=@user.first_name%>
-                  <%=@user.last_name%></p>
-                  <p>Country: <%=@user.country%></p>
-                  <p>City: <%=@user.city%></p>
-                  <p>Postcode: <%=@user.postcode%></p>
-                  <p>Paypal: <%=@user.paypal%></p>
-                  <p>ISP: <%=@user.isp%></p>
-                  <p>Bandwidth<%=@user.bandwidth%></p>
-                <%else%>
-                <%end%>
-              </div>
+       </div>
 
-              <div style="margin-top: 2rem;">
-                <h3>Location Status</h3>
-                <div id="map" style="margin-top: 1rem;">   
+            <div id="order_container" style="display: none; text-align: center"> 
+                <h3 style="font-size: 2.5rem;" class="display-3">New Order</h3>
+                  <%= form_for @order do |form| %>
+                    <div class="row" style="margin-top: 2rem; margin-bottom: 2rem;">
+                      <div class="col-4"><%= form.text_field :country,placeholder: "Country*", class: 'register_form_field order'%></div>
+                      <div class="col-4"><%= form.text_field :city,placeholder: "City*", class: 'register_form_field order'%></div>
+                      <div class="col-4"><%= form.text_field :postcode,placeholder: "Postcode*", class: 'register_form_field order'%></div>
+                    </div>
+                    <div class="row" style="margin-top: 2rem; margin-bottom: 2rem;">
+                      <div class="col-3"><%= form.text_field :street_name,placeholder: "Street name*", class: 'register_form_field order'%></div>
+                      <div class="col-3"><%= form.text_field :address_type,placeholder: "Address type*", class: 'register_form_field order'%></div>
+                      <div class="col-3"><%= form.text_field :building_name,placeholder: "Building Name*", class: 'register_form_field order'%></div>
+                      <div class="col-3"><%= form.text_field :number, placeholder: "Number*", class: 'register_form_field order'%></div>
+                    </div>
+                    <div class="row" style="margin: 2rem auto; width: 100%;>
+                      <div class="col-12"><%= form.text_field :remarks,placeholder: "Remarks*", class: 'register_form_field order', id: 'height'%></div>`
+
+                      <%= form.hidden_field :tracking_id, :value => "pending"%>
+                      <%= form.hidden_field :order_status, :value => "pending"%>
+                      <%= form.hidden_field :device_id, :value => "pending"%>
+                      <%= form.hidden_field :mac_id, :value => "pending"%>
+                      <%= form.hidden_field :status, :value => "offline"%>
+                      
+
+
+                  <div style="width: 80%; margin: -1.5rem auto;">
+                     <button id="back_to_home_page" class="btn btn-outline-dark btn_med">Back</button>
+                     <div class="col-1" style="display: inline;"></div>
+                    <%= form.submit "Create an order", data: {confirm: "Are you sure all your imformation is correct?"}, class: "btn btn-outline-dark btn_med" %>
                 </div>
-              </div>
-
-
-        </div>
-     </div>
+                <%end%>
+            </div>
+        
+      </div>
   </div>
+
+
+
 
     <script>
           function initMap() {
