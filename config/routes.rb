@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :users
       resources :sessions
 
+# get "/orders/search" => "orders#search"
       # Makes it look nice i think?
       get 'signup', to: 'users#new', as: 'signup'
       get 'login', to: 'sessions#new', as: 'login'

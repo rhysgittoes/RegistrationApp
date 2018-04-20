@@ -1,2 +1,64 @@
-<h1>Orders#index</h1>
-<p>Find me in app/views/orders/index.html.erb</p>
+ <h3 style="margin-top: 1rem; display: inline;">Orders</h3> 
+
+               <%= form_tag(orders_path, method: :get) do %>
+                  <%= text_field_tag :order, params[:order] %>
+                  <%= submit_tag 'Search', name: nil  %>
+               <% end %>
+
+
+              <%#= form_tag orders_path, method: :get , class: "search" do %>
+                <%#= text_field_tag :search, params[:search], list: "list", placeholder: "Search for Orders", style: "width:50%;"%>
+                <%#=submit_tag "Search", :name => nil %>
+              <%#end%>
+    <%#if @orders.present?%>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">User name</th>
+          <th scope="col">Order Created</th>
+          <th scope="col">Address</th>
+          <!-- <th scope="col">Remarks<th> -->
+          <th scope="col">Order Status</th>
+          <th scope="col">Tracking ID</th>
+          <th scope="col">Device Status</th>
+          <th scope="col">Mac ID</th>
+          <th scope="col">Device ID</th>
+
+
+
+        </tr>
+      </thead>
+      <tbody>
+        <!-- .order(created_at: :ASC) -->
+          <% @orders.each do |o|%>
+            <tr>
+              <td><%= o.id%></td>
+              <td><%= o.user.first_name%> <%= o.user.last_name%> </td>
+              <td><%= o.created_at.strftime("%d %b. %Y")%></td>
+              <td><%= o.city%>, <%= o.street_name%>, <%= o.number%></td>
+              <!-- <td style="max-width: 10rem; max-height: 2rem; overflow: auto">Remarks here</td> -->
+              <td>
+                    <%= o.order_status%> 
+                    <%= form_for o do |form| %>
+                    <%= form.hidden_field :order_status, :value => "Processing"%>
+                    <!-- <button>Hello</button> -->
+                    <%= form.submit ('Processing'+ o.order_status.to_s)%>
+                  <%end%>
+              </td>
+
+
+
+
+              <td><%= o.tracking_id%></td>
+              <td><%= o.status%></td>
+              <td><%= o.mac_id%></td>
+              <td><%= o.device_id%></td>
+             
+            </tr>
+          <%end%>
+        <%#else%>
+        <h3>No orders found</h3>
+        <%#end%>
+      </tbody>
+    </table>

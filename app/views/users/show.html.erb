@@ -79,7 +79,11 @@
     </div>
     <%end%>
 
-    <h3 style="margin-top: 1rem;">Orders</h3>
+    <h3 style="margin-top: 1rem; display: inline;">Orders</h3> 
+              <%#= form_tag orders_path, method: :get , class: "search" do %>
+                <%#= text_field_tag :search, params[:search], list: "list", placeholder: "Search for Orders", style: "width:50%;"%>
+                <%#=submit_tag "Search", :name => nil %>
+              <%#end%>
     <%if @orders.present?%>
     <table class="table">
       <thead>
@@ -108,7 +112,22 @@
               <td><%= o.created_at.strftime("%d %b. %Y")%></td>
               <td><%= o.city%>, <%= o.street_name%>, <%= o.number%></td>
               <!-- <td style="max-width: 10rem; max-height: 2rem; overflow: auto">Remarks here</td> -->
-              <td><%= o.order_status%></td>
+              <td>
+                    <%= o.order_status%> 
+                    <%if o.order_status == "pending" %>
+                      <%= form_for o do |form| %>
+                      <%= form.hidden_field :order_status, :value => "Processing"%>
+                      <!-- <button>Hello</button> -->
+                      <%= form.submit ('Change to Proccesing?')%>
+                    <%else%>
+
+                    <%end%>
+
+                  <%end%>
+              </td>
+
+<!--  o.order_status.to_s -->
+
               <td><%= o.tracking_id%></td>
               <td><%= o.status%></td>
               <td><%= o.mac_id%></td>
@@ -351,11 +370,12 @@
                     <div class="row" style="margin: 2rem auto; width: 100%;>
                       <div class="col-12"><%= form.text_field :remarks,placeholder: "Remarks*", class: 'register_form_field order', id: 'height'%></div>`
 
-                      <%= form.hidden_field :tracking_id, :value => "waiting"%>
+                      <%= form.hidden_field :tracking_id, :value => "pending"%>
                       <%= form.hidden_field :order_status, :value => "pending"%>
-                      <%= form.hidden_field :status, :value => "offline"%>
                       <%= form.hidden_field :device_id, :value => "pending"%>
                       <%= form.hidden_field :mac_id, :value => "pending"%>
+                      <%= form.hidden_field :status, :value => "offline"%>
+                      
 
 
                   <div style="width: 80%; margin: -1.5rem auto;">
