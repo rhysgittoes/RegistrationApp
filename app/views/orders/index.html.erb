@@ -1,7 +1,8 @@
  <h3 style="margin-top: 1rem; display: inline;">Orders</h3> 
 
-               <%= form_tag(orders_path, method: :get) do %>
-                  <%= text_field_tag :order, params[:order] %>
+               <%= form_tag(orders_search_url, method: :get, id:'search_bar') do %>
+                  <%= text_field_tag :order, params[:order], list: "list2" %>          
+                  <datalist id ="list2"></datalist>
                   <%= submit_tag 'Search', name: nil  %>
                <% end %>
 

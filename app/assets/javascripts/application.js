@@ -29,6 +29,27 @@ document.addEventListener('turbolinks:load', function(){
     });
 
 
+   
+  $("#search_bar").keyup(function(e){    
+      $.ajax({
+         url: "orders/search",
+         method: "GET",
+         data: $(this).serialize(),
+         success: function(data){
+            console.log(data)
+            var list = document.getElementById("list2");
+               list.innerHTML = "";
+            data.forEach(function(element){
+
+               var option = document.createElement("option")
+               option.value = element
+               list.appendChild(option)
+            })
+         }
+      })
+    })
+
+
 
 
 });
